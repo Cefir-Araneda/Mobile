@@ -14,15 +14,14 @@
   </ion-header>
 
   <div id="container">
-    <ion-avatar id="avatar">
+    <ion-avatar id="avatar" #avatar>
       <img alt="Silhouette of a person's head"
-        src="https://i.pinimg.com/550x/4c/46/fe/4c46fee91f13d953d061c5b1caa8bee0.jpg" />
+        src="https://as2.ftcdn.net/v2/jpg/05/62/07/61/1000_F_562076146_m04MMF9oyS6A6M47e92coUsqOLNjONJi.jpg">
     </ion-avatar>
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Credenciales</ion-card-title>
+        <ion-card-title >Credenciales</ion-card-title>
       </ion-card-header>
-
       <ion-card-content>
         <ion-list>
 
@@ -38,12 +37,21 @@
           <ion-item>
             <ion-toggle aria-label="Success toggle" color="success" [checked]="true">Recuerdame</ion-toggle>
           </ion-item><br>
-          <ion-button (click)="mostrarConsola()" size="small" shape="round">Conectar</ion-button><br>
+          <ion-item>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </ion-item>
+          <ion-button (click)="enviarInformacion()" size="small" shape="round">Conectar</ion-button><br>
           <br>
-          <!--<ion-button [routerLink]="['/login']" shape="round" size="small">
+          <ion-button [routerLink]="['/login']" shape="round" size="small">
             Redirect
-          </ion-button>-->
-          <h1>{{mensaje}}</h1><br>
+          </ion-button><br>
+          <ion-button (click)="avatarPlay()" size="small" shape="round" >
+            Animar
+          </ion-button>
+          <div>
+
+            <h1>{{mensaje}}</h1><br>
+          </div>
         </ion-list>
       </ion-card-content>
     </ion-card>
