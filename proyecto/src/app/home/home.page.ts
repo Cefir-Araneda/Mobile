@@ -1,15 +1,18 @@
 import { Component,ViewChild,ElementRef} from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { IonAvatar } from '@ionic/angular';
+import { IonAvatar, IonTitle } from '@ionic/angular';
 import type { Animation } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+
+  
 })
 export class HomePage {
   @ViewChild(IonAvatar,{read:ElementRef}) avatar!:ElementRef<HTMLIonAvatarElement>;
+  @ViewChild(IonTitle,{read:ElementRef}) title!:ElementRef<HTMLIonTitleElement>;
 
   private animation!:Animation;
   private animationn!:Animation;
@@ -18,6 +21,7 @@ export class HomePage {
 
   ngAfterViewInit() {
     this.animation = this.animationCtrl.create()
+    .addElement(this.title.nativeElement)
     .addElement(this.avatar.nativeElement)
     .duration(5000)
     .iterations(Infinity)
@@ -28,10 +32,6 @@ export class HomePage {
       {offset:0.75, transform:'translateX(-100px)',opacity:'0.2'},
       {offset:1, transform:'translateX(0px)',opacity:'1'},
     ])
-
-
-    
-
   }
 
   user = {
@@ -40,6 +40,10 @@ export class HomePage {
   }
   
   playAvatar(){
+    this.animation.play();
+  }
+  
+  playTitle(){
     this.animation.play();
   }
 
