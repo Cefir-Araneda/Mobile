@@ -69,3 +69,16 @@ ion-title {
 #formulario {
   padding: 15px;
 }
+
+.input-animated {
+  animation: inputAnimation 1s 1;
+}
+
+@keyframes inputAnimation {
+  0% {
+    transform: translateX(-5%);
+  }
+  5% {
+    transform: translateX(0%);
+  }
+}

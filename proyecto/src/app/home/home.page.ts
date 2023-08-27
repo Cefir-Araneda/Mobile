@@ -39,11 +39,7 @@ export class HomePage {
     password: ""
   }
   
-  playAvatar(){
-    this.animation.play();
-  }
-  
-  playTitle(){
+  playAnimation(){
     this.animation.play();
   }
 
