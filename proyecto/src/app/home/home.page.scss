@@ -55,11 +55,12 @@ ion-input{
   margin-right: 10%;
   text-indent:15px;
   width: 80%;
+  --ion-color-success:#64E9EE;
 }
 
 ion-button{
   --background: #3AAFB9;
-  --background-hover: #00fff2;
+  --background-hover: #64E9EE;
   --color: white;
   --font-weight: 500;
 }
@@ -69,7 +70,6 @@ a{
   text-decoration: none;
 }
   a:hover{
-    color:#3AAFB9;
+    color:#64E9EE;
     text-decoration:underline;
   }
-
