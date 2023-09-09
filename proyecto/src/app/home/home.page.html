@@ -1,20 +1,44 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large" id="title" #title>Login</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div id="avatar-container">
+    <ion-avatar id="avatar" #avatar>
+      <img alt="Silhouette of a person's head"
+        src="https://img2.freepng.es/20180714/ro/kisspng-computer-icons-user-membership-vector-5b498fc76f2a07.4607730515315475914553.jpg" />
+    </ion-avatar>
+    <div id="text-container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title >Login</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+              <ion-input [(ngModel)]="user.usuario" label="Nombre de Usuario" labelPlacement="floating"
+                placeholder="Ingrese su Usuario"></ion-input>
+              <ion-input [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
+                placeholder="Ingrese su Contraseña">
+              </ion-input>
+            <ion-button (click)="enviarInformacion()" [routerLink]="['/login']" size="small" >
+              Conectar
+            </ion-button><br>
+            <ion-button (click)="playAnimation()" size="small" >
+              Animar
+            </ion-button>
+            <br><br>
+            <a href="#"> Olvidaste tu contraseña?</a>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
 </ion-content>
