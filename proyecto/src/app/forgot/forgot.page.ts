@@ -1,0 +1,35 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
+
+@Component({
+  selector: 'app-forgot',
+  templateUrl: './forgot.page.html',
+  styleUrls: ['./forgot.page.scss'],
+})
+export class ForgotPage implements OnInit {
+
+  constructor(private router: Router) { }
+  public mensaje = ""
+  
+  ngOnInit() {
+  }
+
+  
+  user = {
+    usuario: "",
+    password: ""
+  }
+
+  enviarInformacion() {
+    if (this.user.usuario != "" && this.user.password != "") {
+      let navigationExtras: NavigationExtras = {
+        state: { user: this.user }
+      }
+      this.mensaje = "Contraseña reestablecida"
+      this.router.navigate(['/home'], navigationExtras);
+    } else {
+      this.mensaje = "Complete los campos por favor";
+      this.router.navigate(['/forgot']);
+    }
+  }
+}

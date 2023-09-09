@@ -7,21 +7,16 @@ import { AnimationController } from '@ionic/angular';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-
-  
 })
 export class HomePage {
   @ViewChild(IonAvatar,{read:ElementRef}) avatar!:ElementRef<HTMLIonAvatarElement>;
-  @ViewChild(IonTitle,{read:ElementRef}) title!:ElementRef<HTMLIonTitleElement>;
 
   private animation!:Animation;
-  private animationn!:Animation;
   constructor(private router: Router,private animationCtrl:AnimationController) { }
   public mensaje = ""
 
   ngAfterViewInit() {
     this.animation = this.animationCtrl.create()
-    .addElement(this.title.nativeElement)
     .addElement(this.avatar.nativeElement)
     .duration(5000)
     .iterations(Infinity)
@@ -44,22 +39,15 @@ export class HomePage {
   }
 
   enviarInformacion() {
-    if (this.user.usuario != "") {
+    if (this.user.usuario != "" && this.user.password != "") {
       let navigationExtras: NavigationExtras = {
         state: { user: this.user }
       }
       this.router.navigate(['/login'], navigationExtras);
     } else {
-      this.mensaje = "Debe ingresar sus credenciales";
+      this.mensaje = "Complete los campos por favor";
+      this.router.navigate(['/home']);
     }
   }
-  mostrarConsola() {
-    console.log(this.user);
-    if (this.user.usuario != "" && this.user.password != "") {
-      this.mensaje = "Usuario Conectado";
-    } else {
-      this.mensaje = "Usuario y contraseña deben tener algun valor"
-    }
-  }
-
 }
+

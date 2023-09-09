@@ -35,8 +35,11 @@
             <ion-button (click)="playAnimation()" size="small" >
               Animar
             </ion-button>
-            <br><br>
-            <a href="#"> Olvidaste tu contraseña?</a>
+            <br>
+            <div>
+              <h3>{{mensaje}}</h3>
+            </div>
+            <a [routerLink]="['/forgot']"> Olvidaste tu contraseña?</a>
         </ion-card-content>
       </ion-card>
     </div>
