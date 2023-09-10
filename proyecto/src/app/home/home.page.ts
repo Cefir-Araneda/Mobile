@@ -43,7 +43,7 @@ export class HomePage {
       let navigationExtras: NavigationExtras = {
         state: { user: this.user }
       }
-      this.router.navigate(['/login'], navigationExtras);
+      this.router.navigate(['/init'], navigationExtras);
     } else {
       this.mensaje = "Complete los campos por favor";
       this.router.navigate(['/home']);
