@@ -3,27 +3,19 @@ ion-content{
   }
 
   ion-toolbar {
+    --background: #3AAFB9;
     text-align: center;
-  }
-  
-  ion-card {
-    position: absolute;
-    padding-top: 30px;
-    padding-bottom: 250px;
-    margin-top: 130%;
-    left: 0;
-    right: 0;
-    background-color: #093A3E;
-    border-radius: 20px;
+    height: fit-content;
   }
 
   ion-label{
-    color:white;
-    font-weight: 500;
+    color:black;
+    font-weight: 600;
   }
   
   #welcome{
-    text-indent:15px;
+    padding-top: 25px;
+    text-indent: 40px;
   }
   ion-col{
     color: #3AAFB9;
@@ -33,6 +25,7 @@ ion-content{
     border-color: #3AAFB9;
     background-color: #B6F6F8;
     text-align: center;
+    padding-top: 15px
   }
 
   ion-icon{

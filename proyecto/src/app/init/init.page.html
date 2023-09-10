@@ -1,30 +1,41 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large" id="title" #title>Login</ion-title>
+      <ion-title size="large" id="title" #title>Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
 
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding"></ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title></ion-title>
+      </ion-toolbar>
+    </ion-header>
     <div id="text-container">
-      <ion-card>
-        <div id="welcome">
-          <ion-label>Hola usuario: {{user.usuario}}!</ion-label>
-          <p style="color: white"> ¿Que quieres hacer?</p>
-        </div>
-        <ion-grid>
-          <ion-row class="ion-justify-content-around">
-            <ion-col size="4"><ion-icon name="location-sharp"></ion-icon>Programar viaje</ion-col>
-            <ion-col size="4"><ion-icon name="car-sharp"></ion-icon>Buscar vehiculo</ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
+      <div id="welcome">
+        <ion-label>Hola usuario: {{user.usuario}}!</ion-label>
+        <p style="color: black"> ¿Que quieres hacer?</p>
+      </div>
+      <ion-grid>
+        <ion-row class="ion-justify-content-around">
+          <ion-col size="4"><ion-icon name="location-sharp"></ion-icon>Programar viaje</ion-col>
+          <ion-col size="4"><ion-icon name="car-sharp"></ion-icon>Buscar vehiculo</ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
+    <ion-content class="ion-padding"> Tap the button in the toolbar to open the menu. </ion-content>
+  </div>
+
+    
 </ion-content>
+
