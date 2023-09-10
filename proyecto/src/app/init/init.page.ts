@@ -1,31 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-init',
   templateUrl: './init.page.html',
   styleUrls: ['./init.page.scss'],
 })
-export class InitPage{
+export class InitPage implements OnInit{
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private activatedRouter: ActivatedRoute) { }
   public mensaje = ""
-
-  user = {
+  public user = {
     usuario: "",
     password: ""
   }
 
-  enviarInformacion() {
-    if (this.user.usuario != "" && this.user.password != "") {
-      let navigationExtras: NavigationExtras = {
-        state: { user: this.user }
+  ngOnInit() {
+    this.activatedRouter.queryParams.subscribe(() => {
+      let state = this.router.getCurrentNavigation()?.extras.state;
+      if (state) {
+        this.user.usuario = state['user'].usuario;
+        this.user.password = state['user'].password;
+        console.log(this.user);
       }
-      this.router.navigate(['/login'], navigationExtras);
-    } else {
-      this.mensaje = "Complete los campos por favor";
-      this.router.navigate(['/home']);
-    }
+    })
   }
 }
 
