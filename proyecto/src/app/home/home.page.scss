@@ -36,6 +36,15 @@ ion-card {
   margin-top: 30px;
   background-color: white;
   border-radius: 100px;
+
+  
+  --background: #3AAFB9;
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-card {
+    --background: #3AAFB9;
+  }
 }
 
 ion-card-title {
