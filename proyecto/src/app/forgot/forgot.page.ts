@@ -21,14 +21,14 @@ export class ForgotPage implements OnInit {
   }
 
   enviarInformacion() {
-    if (this.user.usuario != "" && this.user.password != "") {
+    if (this.user.usuario) {
       let navigationExtras: NavigationExtras = {
         state: { user: this.user }
       }
       this.mensaje = "Contraseña reestablecida"
       this.router.navigate(['/home'], navigationExtras);
     } else {
-      this.mensaje = "Complete los campos por favor";
+      this.mensaje = "Complete el campo por favor";
       this.router.navigate(['/forgot']);
     }
   }

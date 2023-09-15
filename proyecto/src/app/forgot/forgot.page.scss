@@ -15,11 +15,20 @@ ion-content{
     background-color: white;
     border-radius: 100px;
   }
-  
+
   ion-card-title {
-    color: #1C2120;
-    font-size: 30px;
-    font-weight: 600;
+    color: white;
+    font-size: 25px;
+    font-weight: 400;
+    width: 200px;
+    background: #3AAFB9;
+    border-radius: 5px;
+  }
+  
+  ion-card-header{
+    display: flex;
+    align-items: center;
+    text-align: center;
   }
   
   ion-input{
@@ -33,7 +42,7 @@ ion-content{
     margin-right: 10%;
     text-indent:15px;
     width: 80%;
-    --ion-color-success:#093A3E;
+    --ion-color-success:#3AAFB9;
   }
   
   ion-button{

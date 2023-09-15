@@ -1,32 +1,27 @@
 import { Component,ViewChild,ElementRef} from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { IonAvatar, IonTitle } from '@ionic/angular';
 import type { Animation } from '@ionic/angular';
-import { AnimationController } from '@ionic/angular';
+import { IonCard,AnimationController } from '@ionic/angular';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  @ViewChild(IonAvatar,{read:ElementRef}) avatar!:ElementRef<HTMLIonAvatarElement>;
+  @ViewChild(IonCard,{read:ElementRef}) card!:ElementRef<HTMLIonCardElement>;
 
   private animation!:Animation;
   constructor(private router: Router,private animationCtrl:AnimationController) { }
   public mensaje = ""
 
   ngAfterViewInit() {
-    this.animation = this.animationCtrl.create()
-    .addElement(this.avatar.nativeElement)
-    .duration(5000)
-    .iterations(Infinity)
-    .keyframes([
-      {offset:0, transform:'translateX(0px)',opacity:'1'},
-      {offset:0.25, transform:'translateX(100px)',opacity:'0.2'},
-      {offset:0.50, transform:'translateX(0px)',opacity:'1'},
-      {offset:0.75, transform:'translateX(-100px)',opacity:'0.2'},
-      {offset:1, transform:'translateX(0px)',opacity:'1'},
-    ])
+    this.animation = this.animationCtrl
+      .create()
+      .addElement(this.card.nativeElement)
+      .duration(1500)
+      .iterations(Infinity)
+      .direction('alternate')
+      .fromTo('background', '#3AAFB9', 'var(--background)');
   }
 
   user = {

@@ -39,14 +39,23 @@ ion-card {
 }
 
 ion-card-title {
-  color: #1C2120;
+  color: white;
   font-size: 30px;
-  font-weight: 600;
+  font-weight: 400;
+  width: 100px;
+  background: #3AAFB9;
+  border-radius: 5px;
+}
+
+ion-card-header{
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 ion-input{
   align-items: center;
-  background-color: #A4A3A3;
+  background-color: #cecece;
   color: black;
   border-radius: 20px;
   margin-top: 5%;
@@ -54,12 +63,12 @@ ion-input{
   margin-left: 10%;
   margin-right: 10%;
   width: 80%;
-  --ion-color-success:#093A3E;
+  --ion-color-success:#3AAFB9;
 }
 
 ion-toggle{
   --handle-background:#3AAFB9;
-  --track-background:#A4A3A3;
+  --track-background:#cecece;
   --handle-background-checked:#3AAFB9;
   --track-background-checked:#64E9EE;
   }
