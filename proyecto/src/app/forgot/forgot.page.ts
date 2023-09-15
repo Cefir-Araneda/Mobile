@@ -26,7 +26,7 @@ export class ForgotPage implements OnInit {
         state: { user: this.user }
       }
       this.mensaje = "Contraseña reestablecida"
-      this.router.navigate(['/home'], navigationExtras);
+      this.router.navigate(['/login'], navigationExtras);
     } else {
       this.mensaje = "Complete el campo por favor";
       this.router.navigate(['/forgot']);

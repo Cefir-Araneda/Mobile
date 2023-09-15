@@ -1,49 +1,34 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large" id="title" #title>Login</ion-title>
+      <ion-title size="large" id="title" #title>Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="avatar-container">
-    <ion-avatar id="avatar" #avatar>
-      <img alt="Logo"
-        src="../../assets/img/Logo.png"/>
-    </ion-avatar>
-    <div id="text-container">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Login</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-              <ion-input style="text-indent:15px" [(ngModel)]="user.usuario" label="Nombre de Usuario" labelPlacement="floating"
-                placeholder="Ingrese su Usuario"></ion-input>
-              <ion-input style="text-indent:15px" [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
-                placeholder="Ingrese su Contraseña">
-              </ion-input>
-              <ion-toggle>Recuerdame</ion-toggle><br>
-              <br>
-              <ion-button (click)="enviarInformacion()" [routerLink]="['/init']" size="small" >
-              Conectar
-            </ion-button><br>
-            <ion-button (click)="playAnimation()" size="small" >
-              Animar
-            </ion-button>
-            <br>
-            <div>
-              <h3>{{mensaje}}</h3>
-            </div>
-            <a [routerLink]="['/forgot']"> Olvidaste tu contraseña?</a>
-        </ion-card-content>
-      </ion-card>
-    </div>
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding"></ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title></ion-title>
+      </ion-toolbar>
+    </ion-header>
+      <div id="welcome">
+        <ion-label>Hola usuario: {{user.usuario}}!</ion-label>
+        <p style="color: black"> ¿Que quieres hacer?</p>
+      </div>
+      <ion-grid>
+        <ion-row class="ion-justify-content-around">
+          <ion-col size="4"><ion-icon name="location-sharp"></ion-icon>Programar viaje</ion-col>
+          <ion-col size="4"><ion-icon name="car-sharp"></ion-icon>Buscar vehiculo</ion-col>
+        </ion-row>
+      </ion-grid>
   </div>
-</ion-content>

@@ -1,48 +1,29 @@
-import { Component,ViewChild,ElementRef} from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import type { Animation } from '@ionic/angular';
-import { IonCard,AnimationController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  @ViewChild(IonCard,{read:ElementRef}) card!:ElementRef<HTMLIonCardElement>;
+export class HomePage implements OnInit{
 
-  private animation!:Animation;
-  constructor(private router: Router,private animationCtrl:AnimationController) { }
+  constructor(private router: Router, private activatedRouter: ActivatedRoute) { }
   public mensaje = ""
-
-  ngAfterViewInit() {
-    this.animation = this.animationCtrl
-      .create()
-      .addElement(this.card.nativeElement)
-      .duration(1500)
-      .iterations(Infinity)
-      .direction('alternate')
-      .fromTo('background', '#3AAFB9', 'var(--background)');
-  }
-
-  user = {
+  public user = {
     usuario: "",
     password: ""
   }
-  
-  playAnimation(){
-    this.animation.play();
-  }
 
-  enviarInformacion() {
-    if (this.user.usuario != "" && this.user.password != "") {
-      let navigationExtras: NavigationExtras = {
-        state: { user: this.user }
+  ngOnInit() {
+    this.activatedRouter.queryParams.subscribe(() => {
+      let state = this.router.getCurrentNavigation()?.extras.state;
+      if (state) {
+        this.user.usuario = state['user'].usuario;
+        this.user.password = state['user'].password;
+        console.log(this.user);
       }
-      this.router.navigate(['/init'], navigationExtras);
-    } else {
-      this.mensaje = "Complete los campos por favor";
-      this.router.navigate(['/home']);
-    }
+    })
   }
 }
 
