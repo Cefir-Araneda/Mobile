@@ -1,53 +1,29 @@
-import { Component,ViewChild,ElementRef} from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { IonAvatar, IonTitle } from '@ionic/angular';
-import type { Animation } from '@ionic/angular';
-import { AnimationController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  @ViewChild(IonAvatar,{read:ElementRef}) avatar!:ElementRef<HTMLIonAvatarElement>;
+export class HomePage implements OnInit{
 
-  private animation!:Animation;
-  constructor(private router: Router,private animationCtrl:AnimationController) { }
+  constructor(private router: Router, private activatedRouter: ActivatedRoute) { }
   public mensaje = ""
-
-  ngAfterViewInit() {
-    this.animation = this.animationCtrl.create()
-    .addElement(this.avatar.nativeElement)
-    .duration(5000)
-    .iterations(Infinity)
-    .keyframes([
-      {offset:0, transform:'translateX(0px)',opacity:'1'},
-      {offset:0.25, transform:'translateX(100px)',opacity:'0.2'},
-      {offset:0.50, transform:'translateX(0px)',opacity:'1'},
-      {offset:0.75, transform:'translateX(-100px)',opacity:'0.2'},
-      {offset:1, transform:'translateX(0px)',opacity:'1'},
-    ])
-  }
-
-  user = {
+  public user = {
     usuario: "",
     password: ""
   }
-  
-  playAnimation(){
-    this.animation.play();
-  }
 
-  enviarInformacion() {
-    if (this.user.usuario != "" && this.user.password != "") {
-      let navigationExtras: NavigationExtras = {
-        state: { user: this.user }
+  ngOnInit() {
+    this.activatedRouter.queryParams.subscribe(() => {
+      let state = this.router.getCurrentNavigation()?.extras.state;
+      if (state) {
+        this.user.usuario = state['user'].usuario;
+        this.user.password = state['user'].password;
+        console.log(this.user);
       }
-      this.router.navigate(['/init'], navigationExtras);
-    } else {
-      this.mensaje = "Complete los campos por favor";
-      this.router.navigate(['/home']);
-    }
+    })
   }
 }
 

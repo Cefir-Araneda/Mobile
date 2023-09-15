@@ -1,35 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Component,ViewChild,ElementRef} from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
+import type { Animation } from '@ionic/angular';
+import { IonCard,AnimationController } from '@ionic/angular';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage{
+  @ViewChild(IonCard,{read:ElementRef}) card!:ElementRef<HTMLIonCardElement>;
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) { }
+  private animation!:Animation;
+  constructor(private router: Router,private animationCtrl:AnimationController) { }
+  public mensaje = ""
 
-  public alertButtons = ['OK'];
-  public user = {
+  ngAfterViewInit() {
+    this.animation = this.animationCtrl
+      .create()
+      .addElement(this.card.nativeElement)
+      .duration(1500)
+      .iterations(Infinity)
+      .direction('alternate')
+      .fromTo('background', '#3AAFB9', 'var(--background)');
+  }
+
+  user = {
     usuario: "",
     password: ""
   }
-  public informacion = {
-    nombre: "",
-    apellido: "",
-    nivel: "",
-    fecha: ""
+  
+  playAnimation(){
+    this.animation.play();
   }
 
-  ngOnInit() {
-    this.activatedRouter.queryParams.subscribe(() => {
-      let state = this.router.getCurrentNavigation()?.extras.state;
-      if (state) {
-        this.user.usuario = state['user'].usuario;
-        this.user.password = state['user'].password;
-        console.log(this.user);
+  enviarInformacion() {
+    if (this.user.usuario != "" && this.user.password != "") {
+      let navigationExtras: NavigationExtras = {
+        state: { user: this.user }
       }
-    })
+      this.mensaje = ""
+      this.router.navigate(['/home'], navigationExtras);
+    } else {
+      this.mensaje = "Complete los campos por favor";
+      this.router.navigate(['/login']);
+      
+    }
   }
-
 }
+

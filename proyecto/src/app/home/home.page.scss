@@ -1,81 +1,36 @@
 ion-content{
-  --ion-background-color:#093A3E;
-}
-#avatar-container {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 45%;
-  transform: translateY(-50%);
-}
-
-#avatar-container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#avatar-container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #8c8c8c;
-  margin: 0;
+  --ion-background-color:white;
 }
 
 ion-toolbar {
+  --background: #3AAFB9;
   text-align: center;
+  height: fit-content;
 }
 
-#avatar{
-  margin: auto;
-  width: 175px;
-  height: 175px;
-}
-
-ion-card {
-  margin-top: 30px;
-  background-color: white;
-  border-radius: 100px;
-}
-
-ion-card-title {
-  color: #1C2120;
-  font-size: 30px;
+ion-label{
+  color:black;
   font-weight: 600;
 }
 
-ion-input{
-  align-items: center;
-  background-color: #A4A3A3;
-  color: black;
+#welcome{
+  padding-top: 25px;
+  text-indent: 40px;
+}
+ion-col{
+  color: #3AAFB9;
+  font-weight: 600;
   border-radius: 20px;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  margin-left: 10%;
-  margin-right: 10%;
-  width: 80%;
-  --ion-color-success:#093A3E;
+  border: 4px solid;
+  border-color: #3AAFB9;
+  background-color: #B6F6F8;
+  text-align: center;
+  padding-top: 15px
 }
 
-ion-toggle{
-  --handle-background:#3AAFB9;
-  --track-background:#A4A3A3;
-  --handle-background-checked:#3AAFB9;
-  --track-background-checked:#64E9EE;
-  }
-
-ion-button{
-  --background: #3AAFB9;
-  --background-hover: #64E9EE;
-  --color: white;
-  --font-weight: 500;
+ion-icon{
+  margin: auto;
+  width: 75px;
+  height: 75px;
 }
 
-a{
-  color:#A4A3A3;
-  text-decoration: none;
-}
-  a:hover{
-    color:#64E9EE;
-    text-decoration:underline;
-  }
