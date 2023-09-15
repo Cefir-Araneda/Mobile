@@ -15,13 +15,13 @@
 
   <div id="avatar-container">
     <ion-avatar id="avatar" #avatar>
-      <img alt="Silhouette of a person's head"
-        src="https://img2.freepng.es/20180714/ro/kisspng-computer-icons-user-membership-vector-5b498fc76f2a07.4607730515315475914553.jpg" />
+      <img alt="Logo"
+        src="../../assets/img/Logo.png"/>
     </ion-avatar>
     <div id="text-container">
       <ion-card>
         <ion-card-header>
-          <ion-card-title >Login</ion-card-title>
+          <ion-card-title>Login</ion-card-title>
         </ion-card-header>
         <ion-card-content>
               <ion-input style="text-indent:15px" [(ngModel)]="user.usuario" label="Nombre de Usuario" labelPlacement="floating"
@@ -29,7 +29,9 @@
               <ion-input style="text-indent:15px" [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
                 placeholder="Ingrese su Contraseña">
               </ion-input>
-            <ion-button (click)="enviarInformacion()" [routerLink]="['/init']" size="small" >
+              <ion-toggle>Recuerdame</ion-toggle><br>
+              <br>
+              <ion-button (click)="enviarInformacion()" [routerLink]="['/init']" size="small" >
               Conectar
             </ion-button><br>
             <ion-button (click)="playAnimation()" size="small" >
