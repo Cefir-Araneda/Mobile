@@ -57,6 +57,13 @@ ion-input{
   --ion-color-success:#093A3E;
 }
 
+ion-toggle{
+  --handle-background:#3AAFB9;
+  --track-background:#A4A3A3;
+  --handle-background-checked:#3AAFB9;
+  --track-background-checked:#64E9EE;
+  }
+
 ion-button{
   --background: #3AAFB9;
   --background-hover: #64E9EE;
