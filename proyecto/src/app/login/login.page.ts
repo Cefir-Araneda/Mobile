@@ -45,7 +45,7 @@ export class LoginPage{
         }
         this.router.navigate(['/home'], navigationExtras);
       } else {
-        this.mensaje = "Debe ingresar sus credenciales";
+        this.mensaje = "Ingrese credenciales correctas";
       }
     });
   }
@@ -57,12 +57,15 @@ export class LoginPage{
     } else {
       this.mensaje = "Usuario y contraseña deben tener algun valor"
     }
+    
   }
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
 
   confirm() {
+    this.estado = "";
+    this.mensaje = "";
     this.auth.register(this.user.usuario, this.user.password).then((res) => {
       if (res) {
         this.estado = "Usuario Existente";
