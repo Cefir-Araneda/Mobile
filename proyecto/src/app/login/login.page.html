@@ -29,18 +29,50 @@
               <ion-input style="text-indent:15px" [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
                 placeholder="Ingrese su Contraseña">
               </ion-input>
-              <ion-toggle>Recuerdame</ion-toggle><br>
+              <ion-toggle style="color: white;">Recuerdame</ion-toggle><br>
               <br>
-              <ion-button (click)="enviarInformacion();playAnimation()" [routerLink]="['/init']" size="small" >
+              <ion-button (click)="enviarInformacion()" size="small" >
               Conectar
             </ion-button>
             <br>
             <div>
               <h3>{{mensaje}}</h3>
             </div>
+            <a id="open-modal">Registrarse</a>
+            <br><br>
             <a [routerLink]="['/forgot']"> Olvidaste tu contraseña?</a>
         </ion-card-content>
       </ion-card>
+      <!-- Modal Section Begin -->
+      <ion-modal trigger="open-modal">
+        <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-buttons slot="start">
+                  <ion-button (click)="cancel()"><ion-icon name="close-sharp"></ion-icon></ion-button>
+                </ion-buttons>
+                <ion-buttons slot="end" id="present-alert">
+                  <ion-button (click)="confirm()" [strong]="true"><ion-icon name="checkmark-sharp"></ion-icon></ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <ion-card style="border-radius: 70px;">
+                <ion-card-header>
+                  <ion-card-title style="width:140px;;">Sign Up</ion-card-title>
+                </ion-card-header>
+                <ion-card-content style="text-align: center;">
+                  <ion-input style="text-indent:15px" [(ngModel)]="user.usuario" label="Nombre Usuario" labelPlacement="floating"
+                    placeholder="Ingrese su Usuario"></ion-input>
+                  <ion-input style="text-indent:15px"[(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
+                    placeholder="Ingrese su Contraseña"></ion-input>
+                  <ion-label>{{estado}}</ion-label>
+                </ion-card-content>
+              </ion-card>
+            </ion-content>              
+        </ng-template>
+      </ion-modal>
+      <!-- Modal Section End -->
     </div>
   </div>
 </ion-content>

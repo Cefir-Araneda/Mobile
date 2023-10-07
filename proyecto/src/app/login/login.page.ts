@@ -1,7 +1,8 @@
 import { Component,ViewChild,ElementRef} from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
+import {IonCard,AnimationController, IonModal } from '@ionic/angular';
 import type { Animation } from '@ionic/angular';
-import { IonCard,AnimationController } from '@ionic/angular';
+import { AutenticacionService } from '../servicios/autenticacion.service';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,14 @@ import { IonCard,AnimationController } from '@ionic/angular';
 export class LoginPage{
   @ViewChild(IonCard,{read:ElementRef}) card!:ElementRef<HTMLIonCardElement>;
 
+  @ViewChild(IonModal) modal!: IonModal;
+
   private animation!:Animation;
-  constructor(private router: Router,private animationCtrl:AnimationController) { }
+  constructor(private router: Router,private animationCtrl:AnimationController, private auth: AutenticacionService) { }
   public mensaje = ""
+  public estado: String = "";
+
+  public alertButtons = ['Ok'];
 
   ngAfterViewInit() {
     this.animation = this.animationCtrl
@@ -23,6 +29,7 @@ export class LoginPage{
       .iterations(Infinity)
       .direction('alternate')
       .fromTo('background', '#3AAFB9', 'var(--background)');
+    this.animation.play()
   }
 
   user = {
@@ -30,22 +37,40 @@ export class LoginPage{
     password: ""
   }
   
-  playAnimation(){
-    this.animation.play();
+  enviarInformacion() {
+    this.auth.login(this.user.usuario, this.user.password).then(() => {
+      if (this.auth.autenticado) {
+        let navigationExtras: NavigationExtras = {
+          state: { user: this.user }
+        }
+        this.router.navigate(['/home'], navigationExtras);
+      } else {
+        this.mensaje = "Debe ingresar sus credenciales";
+      }
+    });
   }
 
-  enviarInformacion() {
+  mostrarConsola() {
+    console.log(this.user);
     if (this.user.usuario != "" && this.user.password != "") {
-      let navigationExtras: NavigationExtras = {
-        state: { user: this.user }
-      }
-      this.mensaje = ""
-      this.router.navigate(['/home'], navigationExtras);
+      this.mensaje = "Usuario Conectado";
     } else {
-      this.mensaje = "Complete los campos por favor";
-      this.router.navigate(['/login']);
-      
+      this.mensaje = "Usuario y contraseña deben tener algun valor"
     }
+  }
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.auth.register(this.user.usuario, this.user.password).then((res) => {
+      if (res) {
+        this.estado = "Usuario Existente";
+      } else {
+        this.mensaje = "Registro Exitoso";
+        this.modal.dismiss(this.user.usuario, 'confirm');
+      }
+    })
   }
 }
 
