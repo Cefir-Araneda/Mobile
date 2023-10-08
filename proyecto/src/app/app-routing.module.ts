@@ -15,12 +15,12 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'forgot',
-    loadChildren: () => import('./login/forgot/forgot.module').then( m => m.ForgotPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'apiTest',
+    loadChildren: () => import('./api-test/api-test.module').then( m => m.ApiTestPageModule)
   },
   {
     path: '**',

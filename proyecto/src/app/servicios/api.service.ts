@@ -5,51 +5,49 @@ import { Observable, retry } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  //Creamos Encabezado
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
     })
   }
-  //Creamos Objeto con la URL del APIRest
-  apiURL = 'http://localhost:3000';
+
+  //URL del APIRest
+  apiURL = 'http://www.themealdb.com/api/json/v1/1/categories.php';
 
   constructor(private http: HttpClient) { }
-  //List All
+  //Lista
   getPosts(): Observable<any> {
     return this.http.get(this.apiURL + "/posts").pipe(
       retry(3)
     );
   }
-  //Get one Object
-  getPost(ID: any): Observable<any> {
-    return this.http.get(this.apiURL + "/posts/" + ID).pipe(
-      retry(3)
-    )
-  }
 
-  //Create a post
+  //C
   createPost(post: any): Observable<any> {
     return this.http.post(this.apiURL + "/posts", post, this.httpOptions).pipe(
       retry(3)
     )
   }
 
-  //Delete a post
-
-  deletePost(ID: any): Observable<any> {
-    return this.http.delete(this.apiURL + "/posts/" + ID).pipe(
+  //R
+  getPost(ID: any): Observable<any> {
+    return this.http.get(this.apiURL + "/posts/" + ID).pipe(
       retry(3)
     )
   }
 
-  //Update a post
+  //U
   updatePost(ID: any, post: any): Observable<any> {
     return this.http.put(this.apiURL + "/posts/" + ID, post, this.httpOptions).pipe(
       retry(3)
     )
   }
 
-
+  //D
+  deletePost(ID: any): Observable<any> {
+    return this.http.delete(this.apiURL + "/posts/" + ID).pipe(
+      retry(3)
+    )
+  }
 }
