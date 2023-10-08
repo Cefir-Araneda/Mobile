@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'forgot',
-    loadChildren: () => import('./forgot/forgot.module').then( m => m.ForgotPageModule)
+    loadChildren: () => import('./login/forgot/forgot.module').then( m => m.ForgotPageModule)
   },
   {
     path: 'login',

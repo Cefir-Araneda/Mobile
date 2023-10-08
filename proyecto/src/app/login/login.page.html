@@ -24,16 +24,16 @@
           <ion-card-title>Login</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-              <ion-input style="text-indent:15px" [(ngModel)]="user.usuario" label="Nombre de Usuario" labelPlacement="floating"
+              <ion-input id="user" style="text-indent:15px" [(ngModel)]="user.usuario" label="Nombre de Usuario" labelPlacement="floating"
                 placeholder="Ingrese su Usuario"></ion-input>
-              <ion-input style="text-indent:15px" [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
+              <ion-input id="password" style="text-indent:15px" [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
                 placeholder="Ingrese su Contraseña">
               </ion-input>
               <ion-toggle style="color: white;">Recuerdame</ion-toggle><br>
               <br>
               <ion-button (click)="enviarInformacion()" size="small" >
-              Conectar
-            </ion-button>
+                Conectar
+              </ion-button>
             <br>
             <div>
               <h3>{{mensaje}}</h3>

@@ -50,22 +50,11 @@ export class LoginPage{
     });
   }
 
-  mostrarConsola() {
-    console.log(this.user);
-    if (this.user.usuario != "" && this.user.password != "") {
-      this.mensaje = "Usuario Conectado";
-    } else {
-      this.mensaje = "Usuario y contraseña deben tener algun valor"
-    }
-    
-  }
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
 
   confirm() {
-    this.estado = "";
-    this.mensaje = "";
     this.auth.register(this.user.usuario, this.user.password).then((res) => {
       if (res) {
         this.estado = "Usuario Existente";
@@ -73,7 +62,9 @@ export class LoginPage{
         this.mensaje = "Registro Exitoso";
         this.modal.dismiss(this.user.usuario, 'confirm');
       }
+    setTimeout(() => {
+        this.mensaje = "";
+      }, 5000);
     })
   }
 }
-
