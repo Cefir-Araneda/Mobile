@@ -13,7 +13,7 @@ export class ApiService {
   }
 
   //URL del APIRest
-  apiURL = 'http://www.themealdb.com/api/json/v1/1/categories.php';
+  apiURL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
   //Lista
