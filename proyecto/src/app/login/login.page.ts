@@ -47,6 +47,9 @@ export class LoginPage{
       } else {
         this.mensaje = "Ingrese credenciales correctas";
       }
+    setTimeout(() => {
+      this.mensaje = "";
+    }, 5000);
     });
   }
 
