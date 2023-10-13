@@ -1,13 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>viaje</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">viaje</ion-title>
+      <ion-title size="large" id="title" #title>Viaje</ion-title>
     </ion-toolbar>
   </ion-header>
-</ion-content>
+
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons>
+          <ion-button [routerLink]="['/home']"><ion-icon style="width: 20px; height: 20px;" name="arrow-back-sharp"></ion-icon></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+      <div id="welcome">
+        <ion-label>Hola usuario: {{user.usuario}}!</ion-label>
+        <p style="color: black"> ¿Que quieres hacer?</p>
+      </div>
+      <ion-grid>
+        <ion-row class="ion-justify-content-around">
+        </ion-row>
+      </ion-grid>
