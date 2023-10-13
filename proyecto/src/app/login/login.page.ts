@@ -53,6 +53,10 @@ export class LoginPage{
     });
   }
 
+  forgot() {
+    this.router.navigate(['forgot']);
+  }
+
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
