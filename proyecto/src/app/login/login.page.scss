@@ -22,9 +22,6 @@ ion-content{
     margin: 0;
   }
   
-  ion-toolbar {
-    text-align: center;
-  }
   
   #avatar{
     margin: auto;
@@ -81,10 +78,15 @@ ion-content{
   }
   
   a{
-    color:#A4A3A3;
+    color: white;
     text-decoration: none;
   }
     a:hover{
       color:#64E9EE;
       text-decoration:underline;
     }
+    
+  h3{
+    margin-top: 10px;
+    color: white;
+  }
