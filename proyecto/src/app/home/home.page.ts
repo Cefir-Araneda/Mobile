@@ -25,5 +25,9 @@ export class HomePage implements OnInit{
       }
     })
   }
+
+  viaje() {
+    this.router.navigate(['/viaje']);
+  }
 }
 
