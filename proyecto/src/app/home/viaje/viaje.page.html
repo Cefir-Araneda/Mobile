@@ -8,15 +8,13 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons>
-          <ion-button [routerLink]="['/home']"><ion-icon style="width: 20px; height: 20px;" name="arrow-back-sharp"></ion-icon></ion-button>
+          <ion-button (click)="volver()"><ion-icon style="width: 20px; height: 20px;" name="arrow-back-sharp"></ion-icon></ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
       <div id="welcome">
         <ion-label>Hola usuario: {{user.usuario}}!</ion-label>
-        <p style="color: black"> ¿Que quieres hacer?</p>
+        <p style="color: black"> ¿A donde vamos hoy?</p>
       </div>
       <ion-grid>
-        <ion-row class="ion-justify-content-around">
-        </ion-row>
       </ion-grid>

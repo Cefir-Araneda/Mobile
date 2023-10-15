@@ -13,7 +13,7 @@ interface User {
 
 export class AutenticacionService {
   public autenticado!: boolean;
-
+  public username: string = '';
   private local!: Storage;
 
   constructor(private storage: Storage, private route: Router) {
@@ -62,6 +62,7 @@ export class AutenticacionService {
     console.log(users)
     if (user) {
       this.autenticado = true;
+      this.username = username;
       return true;
     }
     this.autenticado = false;
@@ -71,6 +72,7 @@ export class AutenticacionService {
 
   logout() {
     this.autenticado = false;
+    this.username = '';
     this.route.navigate(['/login']);
   }
 }

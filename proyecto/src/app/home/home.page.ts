@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { AutenticacionService } from '../servicios/autenticacion.service';
 
 @Component({
   selector: 'app-home',
@@ -8,26 +9,24 @@ import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 })
 export class HomePage implements OnInit{
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) { }
+  constructor(private router: Router, private auth: AutenticacionService) { }
   public mensaje = ""
   public user = {
-    usuario: "",
-    password: ""
+    usuario: ""
   }
 
   ngOnInit() {
-    this.activatedRouter.queryParams.subscribe(() => {
-      let state = this.router.getCurrentNavigation()?.extras.state;
-      if (state) {
-        this.user.usuario = state['user'].usuario;
-        this.user.password = state['user'].password;
-        console.log(this.user);
-      }
-    })
+    this.user = {
+      usuario: this.auth.username
+    }
   }
 
   viaje() {
     this.router.navigate(['/viaje']);
+  }
+
+  volver() {
+    this.router.navigate(['/login']);
   }
 }
 
