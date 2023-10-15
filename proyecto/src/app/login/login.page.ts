@@ -37,10 +37,6 @@ export class LoginPage{
     password: ""
   }
 
-  showAlert(title: string, message: string) {
-    alert(title + ': ' + message);
-  }
-
   enviarInformacion() {
     this.auth.login(this.user.usuario, this.user.password).then(() => {
       if (this.auth.autenticado) {
@@ -74,25 +70,25 @@ export class LoginPage{
     if (this.user.usuario == '' || this.user.password == ''){
       console.log("Algun campo no tiene valor");
       this.mensaje = "Algun campo no tiene valor";
-      this.showAlert('Error', this.mensaje);
     }
     else if(this.user.password.length < 8){
       console.log("Contraseña con menos de 8 caracteres");
       this.mensaje = "Contraseña con menos de 8 caracteres";
-      this.showAlert('Error', this.mensaje);
     }
     else {
       this.auth.register(this.user.usuario, this.user.password).then((res) => {
-        if (res) {
-          this.mensaje = "Registro Exitoso";
-          this.modal.dismiss(this.user.usuario, 'confirm');
+        if (res) {  
+          this.estado = "Registro Exitoso";
+          setTimeout(() => {
+            this.modal.dismiss(this.user.usuario, 'confirm');
+          }, 3000);
         } else {
           this.estado = "Usuario Existente";
         }
         setTimeout(() => {
           this.mensaje = "";
           this.estado = "";
-        }, 5000);
+        }, 3000);
       });
     }
   }
