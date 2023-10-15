@@ -44,14 +44,14 @@
                   <ion-button (click)="cancel()"><ion-icon name="close-sharp"></ion-icon></ion-button>
                 </ion-buttons>
                 <ion-buttons slot="end" id="present-alert">
-                  <ion-button (click)="confirm()" [strong]="true"><ion-icon name="checkmark-sharp"></ion-icon></ion-button>
+                  <ion-button (click)="confirm()" [strong]="true">Registrar</ion-button>
                 </ion-buttons>
               </ion-toolbar>
             </ion-header>
             <ion-content class="ion-padding">
               <ion-card style="border-radius: 70px;">
                 <ion-card-header>
-                  <ion-card-title style="width:140px;;">Sign Up</ion-card-title>
+                  <ion-card-title style="width:140px; color: #3AAFB9;">Sign Up</ion-card-title>
                 </ion-card-header>
                 <ion-card-content style="text-align: center;">
                   <ion-input style="text-indent:15px" [(ngModel)]="user.usuario" label="Nombre Usuario" labelPlacement="floating"
@@ -59,6 +59,7 @@
                   <ion-input style="text-indent:15px"[(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
                     placeholder="Ingrese su Contraseña"></ion-input>
                   <ion-label>{{estado}}</ion-label>
+                  <br>
                   <ion-label>{{mensaje}}</ion-label>
                 </ion-card-content>
               </ion-card>
