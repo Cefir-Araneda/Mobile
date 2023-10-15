@@ -7,9 +7,10 @@
 
     <ion-header>
       <ion-toolbar>
-        <ion-buttons>
-          <ion-button (click)="volver()"><ion-icon style="width: 20px; height: 20px;" name="arrow-back-sharp"></ion-icon></ion-button>
+        <ion-buttons slot="start">
+          <ion-back-button default-href="volver()"></ion-back-button>
         </ion-buttons>
+        <ion-title></ion-title>
       </ion-toolbar>
     </ion-header>
       <div id="welcome">

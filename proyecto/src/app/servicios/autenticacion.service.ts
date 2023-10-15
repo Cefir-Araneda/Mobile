@@ -28,7 +28,7 @@ export class AutenticacionService {
 
   async register(username: string, password: string): Promise<Boolean> {
     const users = await this.local?.get('users') || [];
-    const existe = users.find((us: User) => us.username === username && us.password === password);
+    const existe = users.find((us: User) => us.username === username);
     console.log(users)
     if (existe) {
       console.log("Usuario existente")

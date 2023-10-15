@@ -21,7 +21,7 @@ export class ViajePage implements OnInit {
     }
       }
   
-  volver() {
-    this.router.navigate(['/home']);
+  volver(): string {
+    return '/home';
   }
 }

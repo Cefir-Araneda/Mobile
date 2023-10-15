@@ -70,10 +70,16 @@ export class LoginPage{
     if (this.user.usuario == '' || this.user.password == ''){
       console.log("Algun campo no tiene valor");
       this.mensaje = "Algun campo no tiene valor";
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2500);
     }
     else if(this.user.password.length < 8){
       console.log("Contraseña con menos de 8 caracteres");
       this.mensaje = "Contraseña con menos de 8 caracteres";
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2500);
     }
     else {
       this.auth.register(this.user.usuario, this.user.password).then((res) => {
@@ -88,7 +94,7 @@ export class LoginPage{
         setTimeout(() => {
           this.mensaje = "";
           this.estado = "";
-        }, 3000);
+        }, 25000);
       });
     }
   }
