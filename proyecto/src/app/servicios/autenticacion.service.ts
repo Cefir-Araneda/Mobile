@@ -12,6 +12,7 @@ interface User {
 })
 
 export class AutenticacionService {
+  public mensaje = ""
   public autenticado!: boolean;
   public username: string = '';
   private local!: Storage;
@@ -28,15 +29,17 @@ export class AutenticacionService {
   async register(username: string, password: string): Promise<Boolean> {
     const users = await this.local?.get('users') || [];
     const existe = users.find((us: User) => us.username === username && us.password === password);
+    console.log(users)
     if (existe) {
-      console.log("Usuario Existente")
-      return true;
-    } else {
+      console.log("Usuario existente")
+      return false; 
+      }
+    else{
       const nuevo: User = { username, password };
       users.push(nuevo);
       await this.local.set('users', users);
       console.log("Registro Exitoso")
-      return false;
+      return true;
     }
   }
 

@@ -36,20 +36,29 @@ export class LoginPage{
     usuario: "",
     password: ""
   }
-  
+
+  showAlert(title: string, message: string) {
+    alert(title + ': ' + message);
+  }
+
   enviarInformacion() {
     this.auth.login(this.user.usuario, this.user.password).then(() => {
       if (this.auth.autenticado) {
-        let navigationExtras: NavigationExtras = {
+        const navigationExtras: NavigationExtras = {
           state: { user: this.user }
-        }
+        };
         this.router.navigate(['/home'], navigationExtras);
       } else {
-        this.mensaje = "Ingrese credenciales correctas";
+        if(this.user.usuario == '' || this.user.password == ''){
+          console.log("Algun campo no tiene valor");
+          this.mensaje = "Algun campo no tiene valor";
+        } else {
+          this.mensaje = "Ingrese credenciales correctas";
+        }
       }
-    setTimeout(() => {
-      this.mensaje = "";
-    }, 5000);
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 5000);
     });
   }
 
@@ -62,16 +71,30 @@ export class LoginPage{
   }
 
   confirm() {
-    this.auth.register(this.user.usuario, this.user.password).then((res) => {
-      if (res) {
-        this.estado = "Usuario Existente";
-      } else {
-        this.mensaje = "Registro Exitoso";
-        this.modal.dismiss(this.user.usuario, 'confirm');
-      }
-    setTimeout(() => {
-        this.mensaje = "";
-      }, 5000);
-    })
+    if (this.user.usuario == '' || this.user.password == ''){
+      console.log("Algun campo no tiene valor");
+      this.mensaje = "Algun campo no tiene valor";
+      this.showAlert('Error', this.mensaje);
+    }
+    else if(this.user.password.length < 8){
+      console.log("Contraseña con menos de 8 caracteres");
+      this.mensaje = "Contraseña con menos de 8 caracteres";
+      this.showAlert('Error', this.mensaje);
+    }
+    else {
+      this.auth.register(this.user.usuario, this.user.password).then((res) => {
+        if (res) {
+          this.mensaje = "Registro Exitoso";
+          this.modal.dismiss(this.user.usuario, 'confirm');
+        } else {
+          this.estado = "Usuario Existente";
+        }
+        setTimeout(() => {
+          this.mensaje = "";
+          this.estado = "";
+        }, 5000);
+      });
+    }
   }
 }
+
