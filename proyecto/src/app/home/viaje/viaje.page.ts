@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { AutenticacionService } from '../servicios/autenticacion.service';
+import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-viaje',
+  templateUrl: './viaje.page.html',
+  styleUrls: ['./viaje.page.scss'],
 })
-export class HomePage implements OnInit{
+export class ViajePage implements OnInit {
 
   constructor(private router: Router, private auth: AutenticacionService) { }
   public mensaje = ""
@@ -19,14 +19,9 @@ export class HomePage implements OnInit{
     this.user = {
       usuario: this.auth.username
     }
-  }
-
-  viaje() {
-    this.router.navigate(['/viaje']);
-  }
-
+      }
+  
   volver() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 }
-

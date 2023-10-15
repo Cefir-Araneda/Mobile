@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
+    path: 'viaje',
+    loadChildren: () => import('./home/viaje/viaje.module').then( m => m.ViajePageModule)
+  },
+  {
     path: 'forgot',
     loadChildren: () => import('./login/forgot/forgot.module').then( m => m.ForgotPageModule)
   },
@@ -26,6 +30,8 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
   },
+  
+
 
 ];
 

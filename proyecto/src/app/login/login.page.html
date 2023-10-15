@@ -1,11 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -38,9 +30,9 @@
             <div>
               <h3>{{mensaje}}</h3>
             </div>
-            <a id="open-modal">Registrarse</a>
+            <p style="color: white;" id="open-modal">Registrarse</p>
             <br><br>
-            <a [routerLink]="['/forgot']"> Olvidaste tu contraseña?</a>
+            <p style="color: white;" (click)="forgot()"> Olvidaste tu contraseña?</p>
         </ion-card-content>
       </ion-card>
       <!-- Modal Section Begin -->
