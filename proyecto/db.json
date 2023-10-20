@@ -1,0 +1,35 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "viaje": [
+    {
+      "id": 1,
+      "inicio": "duoc",
+      "termino": "casa",
+      "capacidad": 1,
+      "costo": 1
+    },
+    {
+      "id": 2,
+      "inicio": "a",
+      "termino": "a",
+      "capacidad": "1",
+      "costo": "1"
+    }
+  ]
+}

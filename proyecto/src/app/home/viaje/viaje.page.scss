@@ -46,3 +46,19 @@ ion-content{
     color: #3AAFB9;
     padding-left: 30px;
   }
+
+  ion-card{
+    --background: #3AAFB9;
+    --background-hover: #64E9EE;
+    --color: white;
+    text-align: center;
+    width: fit-content;
+    align-items: center;
+    margin-left: 43%;
+  }
+  ion-button{
+    --background: #3AAFB9;
+    --background-hover: #64E9EE;
+    --color: white;
+    --font-weight: 500;
+  }

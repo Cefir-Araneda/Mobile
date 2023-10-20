@@ -18,38 +18,37 @@ export class ApiService {
   constructor(private http: HttpClient) { }
   //List All
   getPosts(): Observable<any> {
-    return this.http.get(this.apiURL + "/posts").pipe(
+    return this.http.get(this.apiURL + "/viaje").pipe(
       retry(3)
     );
   }
-  //Get one Object
-  getPost(ID: any): Observable<any> {
-    return this.http.get(this.apiURL + "/posts/" + ID).pipe(
-      retry(3)
-    )
-  }
 
-  //Create a post
+  // C (Create a post)
   createPost(post: any): Observable<any> {
-    return this.http.post(this.apiURL + "/posts", post, this.httpOptions).pipe(
+    return this.http.post(this.apiURL + "/viaje", post, this.httpOptions).pipe(
       retry(3)
     )
   }
 
-  //Delete a post
-
-  deletePost(ID: any): Observable<any> {
-    return this.http.delete(this.apiURL + "/posts/" + ID).pipe(
+  // R (Get one Object)
+  getPost(ID: any): Observable<any> {
+    return this.http.get(this.apiURL + "/viaje/" + ID).pipe(
       retry(3)
     )
   }
 
-  //Update a post
+  // U (Update a post)
   updatePost(ID: any, post: any): Observable<any> {
-    return this.http.put(this.apiURL + "/posts/" + ID, post, this.httpOptions).pipe(
+    return this.http.put(this.apiURL + "/viaje/" + ID, post, this.httpOptions).pipe(
       retry(3)
     )
   }
 
+  // D (Delete a post)
+  deletePost(ID: any): Observable<any> {
+    return this.http.delete(this.apiURL + "/viaje/" + ID).pipe(
+      retry(3)
+    )
+  }
 
 }
