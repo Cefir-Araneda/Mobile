@@ -26,7 +26,7 @@ export class ViajePage implements OnInit {
 
   public datosAPI = "";
 
-  public post = {
+  public viaje = {
     id: 0,
     inicio: "",
     termino: "",
@@ -40,7 +40,6 @@ export class ViajePage implements OnInit {
     }
   }
 
-  //viajar(){}
   obtenerTodo() {
     this.datosAPI = ""
     this.api.getPosts().subscribe((res) => {
@@ -54,6 +53,16 @@ export class ViajePage implements OnInit {
       });
     }, (error) => {
       console.log(error);
+    })
+  }
+
+  add() {
+    console.log(this.viaje);
+    this.api.createPost(this.viaje).subscribe((success) => {
+      this.datosAPI = "Agregado con Exito  ";
+      console.log("Funciono")
+    }, (err) => {
+      console.error(err);
     })
   }
 
