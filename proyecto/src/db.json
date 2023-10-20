@@ -15,5 +15,15 @@
     ],
     "profile": {
         "name": "typicode"
-    }
+    },
+
+    "viaje": [
+        {
+            "id": 1,
+            "inicio": "duoc",
+            "termino": "casa",
+            "capacidad": 1,
+            "costo": 1
+        }
+    ]
 }
