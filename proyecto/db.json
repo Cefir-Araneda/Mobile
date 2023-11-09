@@ -13,8 +13,10 @@
       "postId": 1
     }
   ],
-  "profile": {
-    "name": "typicode"
+  "credentials": {
+    "username": "",
+    "password":"",
+    "rol":""
   },
   "viaje": [
     {
@@ -23,13 +25,6 @@
       "termino": "casa",
       "capacidad": 1,
       "costo": 1
-    },
-    {
-      "id": 2,
-      "inicio": "a",
-      "termino": "a",
-      "capacidad": "1",
-      "costo": "1"
     }
   ]
 }
