@@ -1,1 +1,20 @@
-<h1> Si viva viva</h1>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" id="title" #title>Viaje</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="volver()"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Ruta de Viaje</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div id="welcome">
+    <ion-label>Hola {{user.usuario}}!</ion-label>
+    <p style="color: black"> ¿A donde vamos hoy?</p>
+  </div>
+

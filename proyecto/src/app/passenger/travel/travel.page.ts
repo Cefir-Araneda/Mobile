@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 @Component({
   selector: 'app-travel',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TravelPage implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AutenticacionService ) {}
 
-  ngOnInit() {
+  public user = {
+    usuario: ""
   }
 
+  ngOnInit() {
+    this.user = {
+      usuario: this.auth.username
+    }
+  }
+
+  volver(): string {
+    return '/passenger';
+  }
 }
