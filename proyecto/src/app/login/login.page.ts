@@ -33,8 +33,8 @@ export class LoginPage {
 
   public credentials = {
     username: "",
-    password: ""
-    //,rol: ""
+    password: "",
+    rol: ""
   }
 
   ngAfterViewInit() {

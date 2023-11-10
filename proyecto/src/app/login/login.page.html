@@ -55,8 +55,12 @@
               <ion-card-content style="text-align: center;">
                 <ion-input style="text-indent:15px" [(ngModel)]="credentials.username" label="Nombre Usuario"
                   labelPlacement="floating" placeholder="Ingrese su Usuario"></ion-input>
-                <ion-input style="text-indent:15px" [(ngModel)]="credentials.password" label="Contraseña" type="password"
-                  labelPlacement="floating" placeholder="Ingrese su Contraseña"></ion-input>
+                <ion-input style="text-indent:15px" [(ngModel)]="credentials.password" label="Contraseña"
+                  type="password" labelPlacement="floating" placeholder="Ingrese su Contraseña"></ion-input>
+                <ion-select style="text-indent:15px; margin-right:10px;" label="Seleccione su rol" label-placement="floating">
+                  <ion-select-option value="conductor">Conductor</ion-select-option>
+                  <ion-select-option value="pasajero">Pasajero</ion-select-option>
+                </ion-select>
                 <ion-label>{{estado}}</ion-label>
                 <br>
                 <ion-label>{{mensaje}}</ion-label>
