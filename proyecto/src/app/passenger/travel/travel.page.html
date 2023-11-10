@@ -10,11 +10,13 @@
       <ion-buttons slot="start">
         <ion-back-button default-href="volver()"></ion-back-button>
       </ion-buttons>
-      <ion-title>Ruta de Viaje</ion-title>
+      <ion-title>Viajes disponibles</ion-title>
     </ion-toolbar>
   </ion-header>
   <div id="welcome">
     <ion-label>Hola {{user.usuario}}!</ion-label>
     <p style="color: black"> ¿A donde vamos hoy?</p>
+    <ion-list style="background: white;" *ngFor="let viaje of viajes">
+      <ion-item> Inicio: {{ viaje.inicio }} - Termino: {{ viaje.termino }}</ion-item>
+    </ion-list>
   </div>
-

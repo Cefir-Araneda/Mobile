@@ -1,46 +1,26 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
   "credentials": [
-    {
-      "id": 1,
-      "username": "",
-      "password": "",
-      "rol": ""
-    },
     {
       "username": "kovu",
       "password": "kovu1234",
       "rol": "Conductor",
-      "id": 2
+      "id": 1
     },
     {
       "username": "fran",
       "password": "fran1234",
       "rol": "Pasajero",
-      "id": 3
+      "id": 2
     }
   ],
   "viaje": [
     {
       "id": 1,
-      "inicio": "",
-      "termino": "",
-      "capacidad": 0,
-      "costo": 0,
-      "email": ""
+      "inicio": "Duoc UC",
+      "termino": "Carmen 110",
+      "capacidad": 4,
+      "costo": 500,
+      "email": "ai.arenas @duocuc.cl"
     }
   ]
 }

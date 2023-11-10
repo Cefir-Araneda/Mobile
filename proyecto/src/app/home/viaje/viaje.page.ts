@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/servicios/api.service';
+import { Router } from '@angular/router';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 interface dataAPI {
@@ -18,7 +19,7 @@ interface dataAPI {
 })
 export class ViajePage implements OnInit {
 
-  constructor(private auth: AutenticacionService, private api: ApiService) { }
+  constructor(private auth: AutenticacionService, private api: ApiService,private router: Router) { }
   public mensaje = ""
   public user = {
     usuario: ""
@@ -88,15 +89,17 @@ export class ViajePage implements OnInit {
     else {
       this.api.createPost(this.viaje).subscribe((success) => {
         this.datosAPI = "Agregado con Exito  ";
+        this.mensaje = "Ruta guardada con exito"
         console.log("Funciono")
+        setTimeout(() => {
+          this.mensaje = "";
+          this.router.navigate(['/home']);
+        }, 2500);
       }, (err) => {
         console.error(err);
       })
     }
   }
-
-
-
   volver(): string {
     return '/home';
   }
