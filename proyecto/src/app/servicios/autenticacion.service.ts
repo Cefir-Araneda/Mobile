@@ -13,7 +13,7 @@ export class AutenticacionService {
 
   constructor(private api: ApiService, private route: Router) {
   }
-  
+
   async verificarCredenciales(username: string, password: string): Promise<boolean> {
     try {
       const usuarioAutenticado = await this.api.verificarCredenciales(username, password);

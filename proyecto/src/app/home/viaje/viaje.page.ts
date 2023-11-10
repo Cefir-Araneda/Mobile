@@ -30,9 +30,9 @@ export class ViajePage implements OnInit {
     id: 0,
     inicio: "",
     termino: "",
-    capacidad: undefined,
-    costo: undefined,
-    email:""
+    capacidad: 0,
+    costo: 0,
+    email: ""
   }
 
   ngOnInit() {
@@ -58,15 +58,44 @@ export class ViajePage implements OnInit {
     })
   }
 
+
   add() {
     console.log(this.viaje);
-    this.api.createPost(this.viaje).subscribe((success) => {
-      this.datosAPI = "Agregado con Exito  ";
-      console.log("Funciono")
-    }, (err) => {
-      console.error(err);
-    })
+    const capacidadMaxima = 4;
+    const valorMaximo = 3000;
+    if (this.viaje.inicio === '' || this.viaje.termino === '' || this.viaje.email === '') {
+      console.log("Algun campo no tiene valor");
+      this.mensaje = "Algun campo no tiene valor";
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2000);
+    }
+    else if (this.viaje.capacidad > capacidadMaxima) {
+      this.mensaje = "Excede capacidad maxima"
+      console.log("Excede capacidad maxima")
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2000);
+    }
+  
+    else if (this.viaje.costo > valorMaximo) {
+      this.mensaje = "Excede valor de costo maximo"
+      console.log("Excede valor de costo maximo")
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2000);
+    }
+    else {
+      this.api.createPost(this.viaje).subscribe((success) => {
+        this.datosAPI = "Agregado con Exito  ";
+        console.log("Funciono")
+      }, (err) => {
+        console.error(err);
+      })
+    }
   }
+
+
 
   volver(): string {
     return '/home';

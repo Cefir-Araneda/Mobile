@@ -57,6 +57,13 @@ ion-content{
     align-items: center;
     margin-left: 43%;
   }
+
+  #mensaje{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  
   ion-button{
     --background: #3AAFB9;
     --background-hover: #64E9EE;
