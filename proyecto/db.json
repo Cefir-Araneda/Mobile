@@ -21,10 +21,16 @@
       "rol": ""
     },
     {
-      "username": "a",
-      "password": "aaaaaaaa",
+      "username": "kovu",
+      "password": "kovu1234",
       "rol": "Conductor",
       "id": 2
+    },
+    {
+      "username": "fran",
+      "password": "fran1234",
+      "rol": "Pasajero",
+      "id": 3
     }
   ],
   "viaje": [
@@ -35,14 +41,6 @@
       "capacidad": 0,
       "costo": 0,
       "email": ""
-    },
-    {
-      "id": 2,
-      "inicio": "aaaaa",
-      "termino": "aaaaaaa",
-      "capacidad": 4,
-      "costo": 200,
-      "email": "aaaaa@gmail.com"
     }
   ]
 }

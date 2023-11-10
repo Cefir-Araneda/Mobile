@@ -43,79 +43,102 @@ export class LoginPage {
   }
 
   enviarInformacion() {
-    this.auth.verificarCredenciales(this.credentials.username, this.credentials.password).then(() => {
-      if (this.auth.autenticado) {
-        const navigationExtras: NavigationExtras = {
-          state: { user: this.credentials }
-        };
-        this.router.navigate(['/home'], navigationExtras);
-      } else {
-        if (this.credentials.username == '' || this.credentials.password == '') {
-          console.log("Algun campo no tiene valor");
-          this.mensaje = "Algun campo no tiene valor";
-        } else {
-          this.mensaje = "Ingrese credenciales correctas";
-        }
-      }
-      setTimeout(() => {
-        this.mensaje = "";
-      }, 5000);
-    });
-  }
-
-  forgot() {
-    this.router.navigate(['forgot']);
-  }
-
-  cancel() {
-    this.modal.dismiss(null, 'cancel');
-  }
-
-  confirm() {
-    if (this.credentials.username === '' || this.credentials.password === '') {
-      console.log("Algun campo no tiene valor");
-      this.mensaje = "Algun campo no tiene valor";
-      setTimeout(() => {
-        this.mensaje = "";
-      }, 2500);
-    } else if (this.credentials.password.length < 8) {
-      console.log("Contraseña con menos de 8 caracteres");
-      this.mensaje = "Contraseña con menos de 8 caracteres";
-      setTimeout(() => {
-        this.mensaje = "";
-      }, 2500);
-    }
-    else {
-      // Verificar si el nombre de usuario ya existe
-      this.api.getPostsL().pipe(first()).subscribe(
-        (users) => {
-          const existeUsuario = users.find((user: any) => user.username === this.credentials.username);
-          if (existeUsuario) {
-            console.log("Nombre de usuario ya existe");
-            this.mensaje = "Usuario existente";
-            setTimeout(() => {
-              this.mensaje = "";
-            }, 2500);
-          } else {
-            // El nombre de usuario no existe, proceder con el registro
-            console.log(this.credentials);
-            this.api.createPostL(this.credentials).subscribe(
-              (success) => {
-                console.log("Funcionó");
-              },
-              (err) => {
-                console.error(err);
+    this.auth.verificarCredenciales(this.credentials.username, this.credentials.password)
+      .then(() => {
+        if (this.auth.autenticado) {
+          // Busca al usuario en la bdd
+          this.api.getPostsL().subscribe(
+            (users) => {
+              const buscaUsuario = users.find((user: any) => user.username === this.credentials.username);
+              if (buscaUsuario) {
+                // Guarda el rol del usuario
+                this.credentials.rol = buscaUsuario.rol;
+                // Verifica el rol y navega a la página correspondiente
+                if (this.credentials.rol === 'Conductor') {
+                  this.router.navigate(['/home'], {
+                    state: { credentials: this.credentials }
+                  });
+                } else {
+                  this.router.navigate(['/passenger'], {
+                    state: { credentials: this.credentials }
+                  });
+                }
               }
-            );
-            setTimeout(() => {
-              this.modal.dismiss(this.credentials.username, 'confirm');
-            }, 3000);
+            },
+            (error) => {
+              console.error(error);
+            }
+          );
+        } else {
+          if (this.credentials.username === '' || this.credentials.password === '') {
+            console.log("Algun campo no tiene valor");
+            this.mensaje = "Algun campo no tiene valor";
+          } else {
+            this.mensaje = "Ingrese credenciales correctas";
           }
-        },
-        (error) => {
-          console.error(error);
         }
-      );
-    }
+        setTimeout(() => {
+          this.mensaje = "";
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
+
+forgot() {
+  this.router.navigate(['forgot']);
+}
+
+cancel() {
+  this.modal.dismiss(null, 'cancel');
+}
+
+confirm() {
+  if (this.credentials.username === '' || this.credentials.password === '') {
+    console.log("Algun campo no tiene valor");
+    this.mensaje = "Algun campo no tiene valor";
+    setTimeout(() => {
+      this.mensaje = "";
+    }, 2500);
+  } else if (this.credentials.password.length < 8) {
+    console.log("Contraseña con menos de 8 caracteres");
+    this.mensaje = "Contraseña con menos de 8 caracteres";
+    setTimeout(() => {
+      this.mensaje = "";
+    }, 2500);
+  }
+  else {
+    // Verificar si el nombre de usuario ya existe
+    this.api.getPostsL().pipe(first()).subscribe(
+      (users) => {
+        const existeUsuario = users.find((user: any) => user.username === this.credentials.username);
+        if (existeUsuario) {
+          console.log("Nombre de usuario ya existe");
+          this.mensaje = "Usuario existente";
+          setTimeout(() => {
+            this.mensaje = "";
+          }, 2500);
+        } else {
+          // El nombre de usuario no existe, proceder con el registro
+          console.log(this.credentials);
+          this.api.createPostL(this.credentials).subscribe(
+            (success) => {
+              console.log("Funcionó");
+            },
+            (err) => {
+              console.error(err);
+            }
+          );
+          setTimeout(() => {
+            this.modal.dismiss(this.credentials.username, 'confirm');
+          }, 3000);
+        }
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+}
 }
