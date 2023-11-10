@@ -1,25 +1,40 @@
-import { Component,ViewChild,ElementRef} from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import {IonCard,AnimationController, IonModal } from '@ionic/angular';
+import { IonCard, AnimationController, IonModal } from '@ionic/angular';
+import { ApiService } from 'src/app/servicios/api.service';
 import type { Animation } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service';
+
+interface dataAPI {
+  user: String,
+  pass: String
+  //,rol: String,
+}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage{
-  @ViewChild(IonCard,{read:ElementRef}) card!:ElementRef<HTMLIonCardElement>;
+export class LoginPage {
+  @ViewChild(IonCard, { read: ElementRef }) card!: ElementRef<HTMLIonCardElement>;
 
   @ViewChild(IonModal) modal!: IonModal;
 
-  private animation!:Animation;
-  constructor(private router: Router,private animationCtrl:AnimationController, private auth: AutenticacionService) { }
+  private animation!: Animation;
+  constructor(private router: Router, private animationCtrl: AnimationController, private auth: AutenticacionService, private api: ApiService) { }
   public mensaje = ""
   public estado: String = "";
 
   public alertButtons = ['Ok'];
+
+  public datosAPI = "";
+
+  public credentials = {
+    user: "",
+    pass: ""
+    //,rol: ""
+  }
 
   ngAfterViewInit() {
     this.animation = this.animationCtrl
@@ -32,20 +47,20 @@ export class LoginPage{
     this.animation.play()
   }
 
-  user = {
-    usuario: "",
-    password: ""
-  }
+  //user = {
+  //usuario: "",
+  //password: ""
+  //}
 
   enviarInformacion() {
-    this.auth.login(this.user.usuario, this.user.password).then(() => {
+    this.auth.verificarCredenciales(this.credentials.user, this.credentials.pass).then(() => {
       if (this.auth.autenticado) {
         const navigationExtras: NavigationExtras = {
-          state: { user: this.user }
+          state: { user: this.credentials }
         };
         this.router.navigate(['/home'], navigationExtras);
       } else {
-        if(this.user.usuario == '' || this.user.password == ''){
+        if (this.credentials.user == '' || this.credentials.pass == '') {
           console.log("Algun campo no tiene valor");
           this.mensaje = "Algun campo no tiene valor";
         } else {
@@ -67,14 +82,14 @@ export class LoginPage{
   }
 
   confirm() {
-    if (this.user.usuario == '' || this.user.password == ''){
+    if (this.credentials.user == '' || this.credentials.pass == '') {
       console.log("Algun campo no tiene valor");
       this.mensaje = "Algun campo no tiene valor";
       setTimeout(() => {
         this.mensaje = "";
       }, 2500);
     }
-    else if(this.user.password.length < 8){
+    else if (this.credentials.pass.length < 8) {
       console.log("Contraseña con menos de 8 caracteres");
       this.mensaje = "Contraseña con menos de 8 caracteres";
       setTimeout(() => {
@@ -82,21 +97,22 @@ export class LoginPage{
       }, 2500);
     }
     else {
-      this.auth.register(this.user.usuario, this.user.password).then((res) => {
-        if (res) {  
-          this.estado = "Registro Exitoso";
-          setTimeout(() => {
-            this.modal.dismiss(this.user.usuario, 'confirm');
-          }, 3000);
-        } else {
-          this.estado = "Usuario Existente";
-        }
-        setTimeout(() => {
-          this.mensaje = "";
-          this.estado = "";
-        }, 25000);
-      });
+      console.log(this.credentials);
+      this.api.createPost(this.credentials).subscribe((success) => {
+        this.datosAPI = "Agregado con Exito  ";
+        console.log("Funciono")
+      }, (err) => {
+        console.error(err);
+      })
+      setTimeout(() => {
+        this.modal.dismiss(this.credentials.user, 'confirm');
+      }, 3000);
     }
+    setTimeout(() => {
+      this.mensaje = "";
+      this.estado = "";
+    }, 25000);
   }
 }
+
 

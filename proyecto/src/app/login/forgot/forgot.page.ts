@@ -36,9 +36,9 @@ export class ForgotPage implements OnInit {
       this.mensaje = "Por favor ingrese un nombre de usuario";
     } 
     else {
-      this.auth.delete(this.user.usuario).then((res) => {
-      if (res) {
-        this.mensaje = "Usuario no encontrado";
+      /**this.auth.delete(this.user.usuario).then((res) => {
+      /if (res) {
+      /  this.mensaje = "Usuario no encontrado";
       } 
       else {
         this.mensaje = "Usuario eliminado correctamente, ya puede registrarse de nuevo";
@@ -46,7 +46,7 @@ export class ForgotPage implements OnInit {
           this.router.navigate(['/login'],);
         }, 3000);    
       }
-    })
+    })*/
     }
   }
 }

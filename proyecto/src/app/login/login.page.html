@@ -7,8 +7,7 @@
 
   <div id="avatar-container">
     <ion-avatar id="avatar" #avatar>
-      <img alt="Logo"
-        src="../../assets/img/Logo.png"/>
+      <img alt="Logo" src="../../assets/img/Logo.png" />
     </ion-avatar>
     <div id="text-container">
       <ion-card>
@@ -16,54 +15,54 @@
           <ion-card-title>Login</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-              <ion-input id="user" style="text-indent:15px" [(ngModel)]="user.usuario" label="Nombre de Usuario" labelPlacement="floating"
-                placeholder="Ingrese su Usuario"></ion-input>
-              <ion-input id="password" style="text-indent:15px" [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
-                placeholder="Ingrese su Contraseña">
-              </ion-input>
-              <ion-toggle style="color: white;">Recuerdame</ion-toggle><br>
-              <br>
-              <ion-button (click)="enviarInformacion()" size="small" >
-                Conectar
-              </ion-button>
-            <br>
-            <div>
-              <h3>{{mensaje}}</h3>
-            </div>
-            <p style="color: white;" id="open-modal">Registrarse</p>
-            <br>
-            <p style="color: white;" (click)="forgot()"> Olvidaste tu contraseña?</p>
+          <ion-input id="user" style="text-indent:15px" [(ngModel)]="credentials.user" label="Nombre de Usuario"
+            labelPlacement="floating" placeholder="Ingrese su Usuario"></ion-input>
+          <ion-input id="password" style="text-indent:15px" [(ngModel)]="credentials.pass" label="Contraseña"
+            type="password" labelPlacement="floating" placeholder="Ingrese su Contraseña">
+          </ion-input>
+          <ion-toggle style="color: white;">Recuerdame</ion-toggle><br>
+          <br>
+          <ion-button (click)="enviarInformacion()" size="small">
+            Conectar
+          </ion-button>
+          <br>
+          <div>
+            <h3>{{mensaje}}</h3>
+          </div>
+          <p style="color: white;" id="open-modal">Registrarse</p>
+          <br>
+          <p style="color: white;" (click)="forgot()"> Olvidaste tu contraseña?</p>
         </ion-card-content>
       </ion-card>
       <!-- Modal Section Begin -->
       <ion-modal trigger="open-modal">
         <ng-template>
-            <ion-header>
-              <ion-toolbar>
-                <ion-buttons slot="start">
-                  <ion-button (click)="cancel()"><ion-icon name="close-sharp"></ion-icon></ion-button>
-                </ion-buttons>
-                <ion-buttons slot="end" id="present-alert">
-                  <ion-button (click)="confirm()" [strong]="true">Registrar</ion-button>
-                </ion-buttons>
-              </ion-toolbar>
-            </ion-header>
-            <ion-content class="ion-padding">
-              <ion-card style="border-radius: 70px;">
-                <ion-card-header>
-                  <ion-card-title style="width:140px; color: #3AAFB9;">Sign Up</ion-card-title>
-                </ion-card-header>
-                <ion-card-content style="text-align: center;">
-                  <ion-input style="text-indent:15px" [(ngModel)]="user.usuario" label="Nombre Usuario" labelPlacement="floating"
-                    placeholder="Ingrese su Usuario"></ion-input>
-                  <ion-input style="text-indent:15px"[(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
-                    placeholder="Ingrese su Contraseña"></ion-input>
-                  <ion-label>{{estado}}</ion-label>
-                  <br>
-                  <ion-label>{{mensaje}}</ion-label>
-                </ion-card-content>
-              </ion-card>
-            </ion-content>              
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                <ion-button (click)="cancel()"><ion-icon name="close-sharp"></ion-icon></ion-button>
+              </ion-buttons>
+              <ion-buttons slot="end" id="present-alert">
+                <ion-button (click)="confirm()" [strong]="true">Registrar</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <ion-card style="border-radius: 70px;">
+              <ion-card-header>
+                <ion-card-title style="width:140px; color: #3AAFB9;">Sign Up</ion-card-title>
+              </ion-card-header>
+              <ion-card-content style="text-align: center;">
+                <ion-input style="text-indent:15px" [(ngModel)]="credentials.user" label="Nombre Usuario"
+                  labelPlacement="floating" placeholder="Ingrese su Usuario"></ion-input>
+                <ion-input style="text-indent:15px" [(ngModel)]="credentials.pass" label="Contraseña" type="password"
+                  labelPlacement="floating" placeholder="Ingrese su Contraseña"></ion-input>
+                <ion-label>{{estado}}</ion-label>
+                <br>
+                <ion-label>{{mensaje}}</ion-label>
+              </ion-card-content>
+            </ion-card>
+          </ion-content>
         </ng-template>
       </ion-modal>
       <!-- Modal Section End -->
