@@ -4,8 +4,9 @@ import { IonCard, AnimationController, IonModal } from '@ionic/angular';
 import { ApiService } from 'src/app/servicios/api.service';
 import type { Animation } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service';
+import { first } from 'rxjs/operators';
 
-interface login {
+interface datosAPI {
   username: String,
   password: String
   //,rol: String,
@@ -31,8 +32,8 @@ export class LoginPage {
   public datosAPI = "";
 
   public credentials = {
-    user: "",
-    pass: ""
+    username: "",
+    password: ""
     //,rol: ""
   }
 
@@ -47,20 +48,15 @@ export class LoginPage {
     this.animation.play()
   }
 
-  //user = {
-  //usuario: "",
-  //password: ""
-  //}
-
   enviarInformacion() {
-    this.auth.verificarCredenciales(this.credentials.user, this.credentials.pass).then(() => {
+    this.auth.verificarCredenciales(this.credentials.username, this.credentials.password).then(() => {
       if (this.auth.autenticado) {
         const navigationExtras: NavigationExtras = {
           state: { user: this.credentials }
         };
         this.router.navigate(['/home'], navigationExtras);
       } else {
-        if (this.credentials.user == '' || this.credentials.pass == '') {
+        if (this.credentials.username == '' || this.credentials.password == '') {
           console.log("Algun campo no tiene valor");
           this.mensaje = "Algun campo no tiene valor";
         } else {
@@ -82,14 +78,13 @@ export class LoginPage {
   }
 
   confirm() {
-    if (this.credentials.user == '' || this.credentials.pass == '') {
+    if (this.credentials.username === '' || this.credentials.password === '') {
       console.log("Algun campo no tiene valor");
       this.mensaje = "Algun campo no tiene valor";
       setTimeout(() => {
         this.mensaje = "";
       }, 2500);
-    }
-    else if (this.credentials.pass.length < 8) {
+    } else if (this.credentials.password.length < 8) {
       console.log("Contraseña con menos de 8 caracteres");
       this.mensaje = "Contraseña con menos de 8 caracteres";
       setTimeout(() => {
@@ -97,22 +92,37 @@ export class LoginPage {
       }, 2500);
     }
     else {
-      console.log(this.credentials);
-      this.api.createPostL(this.credentials).subscribe((success) => {
-        this.datosAPI = "Agregado con Exito  ";
-        console.log("Funciono")
-      }, (err) => {
-        console.error(err);
-      })
-      setTimeout(() => {
-        this.modal.dismiss(this.credentials.user, 'confirm');
-      }, 3000);
+      // Verificar si el nombre de usuario ya existe
+      this.api.getPostsL().pipe(first()).subscribe(
+        (users) => {
+          const existeUsuario = users.find((user: any) => user.username === this.credentials.username);
+          if (existeUsuario) {
+            console.log("Nombre de usuario ya existe");
+            this.mensaje = "Usuario existente";
+            setTimeout(() => {
+              this.mensaje = "";
+            }, 2500);
+          } else {
+            // El nombre de usuario no existe, proceder con el registro
+            console.log(this.credentials);
+            this.api.createPostL(this.credentials).subscribe(
+              (success) => {
+                this.datosAPI = "Agregado con Éxito";
+                console.log("Funcionó");
+              },
+              (err) => {
+                console.error(err);
+              }
+            );
+            setTimeout(() => {
+              this.modal.dismiss(this.credentials.username, 'confirm');
+            }, 3000);
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
-    setTimeout(() => {
-      this.mensaje = "";
-      this.estado = "";
-    }, 25000);
   }
 }
-
-
