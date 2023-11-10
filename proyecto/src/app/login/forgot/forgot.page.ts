@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { AutenticacionService } from '../../servicios/autenticacion.service';
+import { Router } from '@angular/router';
+import { ApiService } from 'src/app/servicios/api.service';
 
 @Component({
   selector: 'app-forgot',
@@ -9,19 +9,17 @@ import { AutenticacionService } from '../../servicios/autenticacion.service';
 })
 export class ForgotPage implements OnInit {
 
-  constructor(private router: Router, private auth: AutenticacionService) { }
+  constructor(private router: Router, private api: ApiService) { }
   public mensaje = ""
   public estado: String = "";
-  
+
   public alertButtons = ['Ok'];
 
-  ngOnInit() {
+  public credentials = {
+    username: ""
   }
 
-  
-  user = {
-    usuario: "",
-    password: ""
+  ngOnInit() {
   }
 
   cancel() {
@@ -31,22 +29,47 @@ export class ForgotPage implements OnInit {
   confirm() {
     this.estado = "";
     this.mensaje = "";
-    if(this.user.usuario == ''){
+
+    if (this.credentials.username === '') {
       console.log("Por favor ingrese un nombre de usuario");
       this.mensaje = "Por favor ingrese un nombre de usuario";
-    } 
-    else {
-      /**this.auth.delete(this.user.usuario).then((res) => {
-      /if (res) {
-      /  this.mensaje = "Usuario no encontrado";
-      } 
-      else {
-        this.mensaje = "Usuario eliminado correctamente, ya puede registrarse de nuevo";
-        setTimeout(() => {
-          this.router.navigate(['/login'],);
-        }, 3000);    
-      }
-    })*/
+    } else {
+      // Verificar si el usuario existe
+      this.api.getPostsL().subscribe(
+        (users) => {
+          const existeUsuario = users.find((user: any) => user.username === this.credentials.username);
+          if (existeUsuario) {
+            // El usuario existe, obtenenemos ID y eliminamos
+            const Id = existeUsuario.id; 
+            this.api.deletePostL(Id).subscribe(
+              (success) => {
+                console.log("Se borró :D");
+                this.mensaje = "Usuario eliminado, puede registrarse nuevamente";
+                {
+                setTimeout(() => {
+                  this.mensaje = "";
+                  this.router.navigate(['/login']);
+                }, 2500);
+              }
+              },
+              (err) => {
+                console.error(err);
+              }
+            );
+            setTimeout(() => {
+            }, 3000);
+          } else {
+            console.log("Nombre de usuario no existe");
+            this.mensaje = "Usuario inexistente";
+            setTimeout(() => {
+              this.mensaje = "";
+            }, 2500);
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
   }
 }

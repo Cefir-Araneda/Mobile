@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/servicios/api.service';
-import { Storage } from '@ionic/storage-angular'
-
-interface dataAPI {
-  user: String,
-  pass: String,
-  //rol: String,
-}
 
 @Injectable({
   providedIn: 'root'

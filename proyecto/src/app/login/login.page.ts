@@ -6,12 +6,6 @@ import type { Animation } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service';
 import { first } from 'rxjs/operators';
 
-interface datosAPI {
-  username: String,
-  password: String
-  //,rol: String,
-}
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -107,7 +101,6 @@ export class LoginPage {
             console.log(this.credentials);
             this.api.createPostL(this.credentials).subscribe(
               (success) => {
-                this.datosAPI = "Agregado con Éxito";
                 console.log("Funcionó");
               },
               (err) => {

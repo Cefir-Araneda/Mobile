@@ -18,21 +18,31 @@
       "id": 1,
       "username": "",
       "password": "",
-      "rol":""
+      "rol": ""
     },
     {
       "username": "a",
       "password": "aaaaaaaa",
+      "rol": "Conductor",
       "id": 2
     }
   ],
   "viaje": [
     {
       "id": 1,
-      "inicio": "duoc",
-      "termino": "casa",
-      "capacidad": 1,
-      "costo": 1
+      "inicio": "",
+      "termino": "",
+      "capacidad": 0,
+      "costo": 0,
+      "email": ""
+    },
+    {
+      "id": 2,
+      "inicio": "aaaaa",
+      "termino": "aaaaaaa",
+      "capacidad": 4,
+      "costo": 200,
+      "email": "aaaaa@gmail.com"
     }
   ]
 }

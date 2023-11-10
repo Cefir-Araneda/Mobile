@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/servicios/api.service';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 
@@ -8,7 +7,8 @@ interface dataAPI {
   inicio: String,
   termino: String,
   capacidad: Number,
-  costo: Number
+  costo: Number,
+  email: String
 }
 
 @Component({
@@ -18,7 +18,7 @@ interface dataAPI {
 })
 export class ViajePage implements OnInit {
 
-  constructor(private router: Router, private auth: AutenticacionService, private api: ApiService) { }
+  constructor(private auth: AutenticacionService, private api: ApiService) { }
   public mensaje = ""
   public user = {
     usuario: ""
@@ -30,8 +30,9 @@ export class ViajePage implements OnInit {
     id: 0,
     inicio: "",
     termino: "",
-    capacidad: 0,
-    costo: 0
+    capacidad: undefined,
+    costo: undefined,
+    email:""
   }
 
   ngOnInit() {
@@ -50,6 +51,7 @@ export class ViajePage implements OnInit {
         this.datosAPI += tmp.termino + "\n";
         this.datosAPI += tmp.capacidad + "\n";
         this.datosAPI += tmp.costo + "\n";
+        this.datosAPI += tmp.email + "\n";
       });
     }, (error) => {
       console.log(error);
