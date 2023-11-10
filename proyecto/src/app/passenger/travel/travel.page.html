@@ -15,8 +15,20 @@
   </ion-header>
   <div id="welcome">
     <ion-label>Hola {{user.usuario}}!</ion-label>
-    <p style="color: black"> ¿A donde vamos hoy?</p>
-    <ion-list style="background: white;" *ngFor="let viaje of viajes">
-      <ion-item> Inicio: {{ viaje.inicio }} - Termino: {{ viaje.termino }}</ion-item>
+    <p style="color: black"> ¿A dónde vamos hoy?</p>
+  </div>
+
+  <div>
+    <ion-list style="background: white;">
+      <ion-select placeholder="Seleccionar" [(ngModel)]="viajeSeleccionado">
+        <ion-select-option *ngFor="let v of viajes" [value]="v">
+          <ion-label>
+            Inicio: {{ v.inicio }}<br>
+            Termino: {{ v.termino }}<br>
+            Costo: {{ v.costo }}
+          </ion-label>
+        </ion-select-option>
+      </ion-select>
     </ion-list>
   </div>
+</ion-content>

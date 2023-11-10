@@ -36,6 +36,8 @@ export class TravelPage implements OnInit {
     costo: 0,
     email: ""
   }
+  viajeSeleccionado: any;
+  
   ngOnInit() {
     this.user = {
       usuario: this.auth.username

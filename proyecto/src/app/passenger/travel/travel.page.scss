@@ -23,13 +23,21 @@ ion-content{
     text-indent: 40px;
   }
 
-  ion-item{
+  ion-select{
+    text-indent: 10px;
+    align-items: center;
+    background-color: #3AAFB9;
+    color: white;
+    font-weight: 500;
     margin-left: 10%;
     margin-right: 10%;
-    text-indent: 10px;
-    --background: #3AAFB9;
-    --border-color:var(--background);
+    width: 80%;
+    --highlight-color-focused: white;
+    --highlight-color-valid: white;
+    --padding-end:10px;
+    --ion-color-step-500:white;
   }
+   
 
   ion-button{
     --background: #3AAFB9;
