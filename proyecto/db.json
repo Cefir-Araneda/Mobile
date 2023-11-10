@@ -15,6 +15,7 @@
   ],
   "credentials": [
     {
+      "id": 1,
       "username": "",
       "password": ""
     }
@@ -26,22 +27,6 @@
       "termino": "casa",
       "capacidad": 1,
       "costo": 1
-    },
-    {
-      "user": "Fran",
-      "pass": "12345678",
-      "rol": "",
-      "id": 2
-    },
-    {
-      "user": "a",
-      "pass": "12345678",
-      "id": 3
-    },
-    {
-      "user": "kovucin",
-      "pass": "12345678",
-      "id": 4
     }
   ]
 }

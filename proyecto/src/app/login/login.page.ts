@@ -5,9 +5,9 @@ import { ApiService } from 'src/app/servicios/api.service';
 import type { Animation } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service';
 
-interface dataAPI {
-  user: String,
-  pass: String
+interface login {
+  username: String,
+  password: String
   //,rol: String,
 }
 
@@ -98,7 +98,7 @@ export class LoginPage {
     }
     else {
       console.log(this.credentials);
-      this.api.createPost(this.credentials).subscribe((success) => {
+      this.api.createPostL(this.credentials).subscribe((success) => {
         this.datosAPI = "Agregado con Exito  ";
         console.log("Funciono")
       }, (err) => {
