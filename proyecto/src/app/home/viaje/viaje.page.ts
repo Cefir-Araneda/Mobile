@@ -5,6 +5,7 @@ import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 interface dataAPI {
   id: Number,
+  chofer: String,
   inicio: String,
   termino: String,
   capacidad: Number,
@@ -29,6 +30,7 @@ export class ViajePage implements OnInit {
 
   public viaje = {
     id: 0,
+    chofer:"",
     inicio: "",
     termino: "",
     capacidad: 0,
@@ -48,6 +50,7 @@ export class ViajePage implements OnInit {
       console.log(res);
       res.forEach((tmp: dataAPI) => {
         this.datosAPI += tmp.id + "\n";
+        this.datosAPI += tmp.chofer + "\n";
         this.datosAPI += tmp.inicio + "\n";
         this.datosAPI += tmp.termino + "\n";
         this.datosAPI += tmp.capacidad + "\n";
@@ -64,6 +67,7 @@ export class ViajePage implements OnInit {
     console.log(this.viaje);
     const capacidadMaxima = 4;
     const valorMaximo = 3000;
+    this.viaje.chofer = this.auth.username
     if (this.viaje.inicio === '' || this.viaje.termino === '' || this.viaje.email === '') {
       console.log("Algun campo no tiene valor");
       this.mensaje = "Algun campo no tiene valor";

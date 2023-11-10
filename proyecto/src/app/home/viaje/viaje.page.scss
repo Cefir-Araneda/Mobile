@@ -49,13 +49,15 @@ ion-content{
   }
 
   ion-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     --background: #3AAFB9;
     --background-hover: #64E9EE;
     --color: white;
     text-align: center;
     width: fit-content;
-    align-items: center;
-    margin-left: 43%;
+    margin-left: 36%;
   }
 
   #mensaje{

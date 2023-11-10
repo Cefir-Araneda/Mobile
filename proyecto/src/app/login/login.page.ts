@@ -124,7 +124,11 @@ confirm() {
           console.log(this.credentials);
           this.api.createPostL(this.credentials).subscribe(
             (success) => {
-              console.log("Funcionó");
+              this.mensaje = "Registro Exitoso";
+              console.log("Funcionaaaa :D");
+              setTimeout(() => {
+                this.mensaje = "";
+              }, 2000);
             },
             (err) => {
               console.error(err);

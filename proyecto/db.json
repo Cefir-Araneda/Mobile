@@ -11,11 +11,18 @@
       "password": "fran1234",
       "rol": "Pasajero",
       "id": 2
+    },
+    {
+      "username": "myla",
+      "password": "myla1234",
+      "rol": "Conductor",
+      "id": 3
     }
   ],
   "viaje": [
     {
       "id": 1,
+      "chofer": "kovu",
       "inicio": "Duoc UC",
       "termino": "Carmen 110",
       "capacidad": 4,
@@ -24,11 +31,21 @@
     },
     {
       "id": 2,
+      "chofer": "kovu",
       "inicio": "Duoc UC",
       "termino": "Puente Alto",
       "capacidad": 2,
       "costo": 1000,
       "email": "kaishery.corv@gmail.com"
+    },
+    {
+      "id": 3,
+      "chofer": "myla",
+      "inicio": "Universidad Catolica",
+      "termino": "Duoc UC",
+      "capacidad": 3,
+      "costo": 700,
+      "email": "arenas.corv@gmail.com"
     }
   ]
 }

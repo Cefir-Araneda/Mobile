@@ -4,6 +4,7 @@ import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 interface dataAPI {
   id: Number,
+  chofer: String
   inicio: String,
   termino: String,
   capacidad: Number,
@@ -30,12 +31,14 @@ export class TravelPage implements OnInit {
 
   public viaje = {
     id: 0,
+    chofer:"",
     inicio: "",
     termino: "",
     capacidad: 0,
     costo: 0,
     email: ""
   }
+
   viajeSeleccionado: any;
   
   ngOnInit() {
@@ -43,6 +46,24 @@ export class TravelPage implements OnInit {
       usuario: this.auth.username
     };
     this.cargarViajes();
+  }
+
+  obtenerTodo() {
+    this.datosAPI = ""
+    this.api.getPosts().subscribe((res) => {
+      console.log(res);
+      res.forEach((tmp: dataAPI) => {
+        this.datosAPI += tmp.id + "\n";
+        this.datosAPI += tmp.chofer + "\n";
+        this.datosAPI += tmp.inicio + "\n";
+        this.datosAPI += tmp.termino + "\n";
+        this.datosAPI += tmp.capacidad + "\n";
+        this.datosAPI += tmp.costo + "\n";
+        this.datosAPI += tmp.email + "\n";
+      });
+    }, (error) => {
+      console.log(error);
+    })
   }
   
   cargarViajes() {
