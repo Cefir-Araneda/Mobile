@@ -31,10 +31,19 @@
       </ion-select>
     </ion-list>
   </div>
+  <ion-item>
+    <ion-icon class="icon" name="mail-outline"></ion-icon>
+    <ion-input style="text-indent:15px" [(ngModel)]="nuevoEmail" label="Email" labelPlacement="floating" type="email"
+      maxlength="38"></ion-input>
+  </ion-item>
+  <br>
+  <div id="mensaje">
+    <ion-label style="color: #3AAFB9;">{{mensaje}}</ion-label>
+  </div>
   <div>
     <ion-card>
         <ion-buttons>
-          <ion-button (click)="obtenerTodo()" size="small">
+          <ion-button (click)="reserva()" size="small">
             Reservar
           </ion-button>
         </ion-buttons>

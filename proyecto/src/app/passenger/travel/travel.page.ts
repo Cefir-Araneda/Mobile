@@ -9,7 +9,7 @@ interface dataAPI {
   termino: String,
   capacidad: Number,
   costo: Number,
-  email: String
+  emails: []
 }
 
 @Component({
@@ -18,11 +18,11 @@ interface dataAPI {
   styleUrls: ['./travel.page.scss'],
 })
 export class TravelPage implements OnInit {
-  
-  viajes: dataAPI[] = [];
-  
-  constructor(private auth: AutenticacionService, private api: ApiService) { }
 
+  viajes: dataAPI[] = [];
+
+  constructor(private auth: AutenticacionService, private api: ApiService) { }
+  public mensaje = ""
   public user = {
     usuario: ""
   };
@@ -31,16 +31,17 @@ export class TravelPage implements OnInit {
 
   public viaje = {
     id: 0,
-    chofer:"",
+    chofer: "",
     inicio: "",
     termino: "",
     capacidad: 0,
     costo: 0,
-    email: ""
+    emails: []
   }
 
   viajeSeleccionado: any;
-  
+  nuevoEmail: string = "";
+
   ngOnInit() {
     this.user = {
       usuario: this.auth.username
@@ -59,13 +60,13 @@ export class TravelPage implements OnInit {
         this.datosAPI += tmp.termino + "\n";
         this.datosAPI += tmp.capacidad + "\n";
         this.datosAPI += tmp.costo + "\n";
-        this.datosAPI += tmp.email + "\n";
+        this.datosAPI += tmp.emails + "\n";
       });
     }, (error) => {
       console.log(error);
     })
   }
-  
+
   cargarViajes() {
     this.api.getPosts().subscribe(
       (data: dataAPI[]) => {
@@ -75,6 +76,48 @@ export class TravelPage implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  reserva() {
+    if (this.viajeSeleccionado && this.viajeSeleccionado.emails) {
+      if (this.nuevoEmail != '') {
+        const viajeElegido = this.viajes.find(viaje => viaje.id === this.viajeSeleccionado.id);
+  
+        if (viajeElegido) {
+          if (viajeElegido.emails.length == viajeElegido.capacidad) {
+            this.mensaje = "No puede reservar, auto con capacidad máxima";
+            setTimeout(() => {
+              this.mensaje = "";
+            }, 3000);
+          } else {
+            this.viajeSeleccionado.emails.push(this.nuevoEmail);
+  
+            this.api.updatePost(this.viajeSeleccionado.id, this.viajeSeleccionado).subscribe(
+              (success) => {
+                this.mensaje = "Reserva realizada";
+                console.log("Viaje actualizado con nuevo email");
+                const destinatarioEmails = viajeElegido.emails;
+                console.log('Correo del destinatario:', destinatarioEmails);
+              },
+              (error) => {
+                console.error(error);
+              }
+            );
+          }
+        }
+      } else {
+        this.mensaje = "No puede reservar sin escribir su correo";
+        setTimeout(() => {
+          this.mensaje = "";
+        }, 2000);
+      }
+    } else {
+      this.mensaje = "Debe seleccionar algún viaje";
+      console.log('Viaje no seleccionado');
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2000);
+    }
   }
 
   volver(): string {

@@ -10,7 +10,7 @@ interface dataAPI {
   termino: String,
   capacidad: Number,
   costo: Number,
-  email: String
+  emails: String
 }
 
 @Component({
@@ -35,7 +35,7 @@ export class ViajePage implements OnInit {
     termino: "",
     capacidad: 0,
     costo: 0,
-    email: ""
+    emails: []
   }
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class ViajePage implements OnInit {
         this.datosAPI += tmp.termino + "\n";
         this.datosAPI += tmp.capacidad + "\n";
         this.datosAPI += tmp.costo + "\n";
-        this.datosAPI += tmp.email + "\n";
+        this.datosAPI += tmp.emails + "\n";
       });
     }, (error) => {
       console.log(error);
@@ -68,7 +68,7 @@ export class ViajePage implements OnInit {
     const capacidadMaxima = 4;
     const valorMaximo = 3000;
     this.viaje.chofer = this.auth.username
-    if (this.viaje.inicio === '' || this.viaje.termino === '' || this.viaje.email === '') {
+    if (this.viaje.inicio === '' || this.viaje.termino === '' || this.viaje.emails.length === 0) {
       console.log("Algun campo no tiene valor");
       this.mensaje = "Algun campo no tiene valor";
       setTimeout(() => {

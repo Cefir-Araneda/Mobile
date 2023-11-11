@@ -27,7 +27,12 @@
       "termino": "Carmen 110",
       "capacidad": 4,
       "costo": 500,
-      "email": "ai.arenas@duocuc.cl"
+      "emails": [
+        "ai.arenas@duocuc.cl",
+        "fr.aranedag@duocuc.cl",
+        "aaaa@gmail.com",
+        "eeeee@gmail.com"
+      ]
     },
     {
       "id": 2,
@@ -36,7 +41,10 @@
       "termino": "Puente Alto",
       "capacidad": 2,
       "costo": 1000,
-      "email": "kaishery.corv@gmail.com"
+      "emails": [
+        "kaishery.corv@gmail.com",
+        "aaaa@gmail.com"
+      ]
     },
     {
       "id": 3,
@@ -45,7 +53,9 @@
       "termino": "Duoc UC",
       "capacidad": 3,
       "costo": 700,
-      "email": "arenas.corv@gmail.com"
+      "emails": [
+        "arenas.corv@gmail.com"
+      ]
     }
   ]
 }
