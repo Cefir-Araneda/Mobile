@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 import { ApiService } from 'src/app/servicios/api.service';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
+import { EmailService } from '../../servicios/mail.service';
 
 interface dataAPI {
   id: Number,
@@ -9,7 +11,7 @@ interface dataAPI {
   termino: String,
   capacidad: Number,
   costo: Number,
-  emails: []
+  emails: string[];
 }
 
 @Component({
@@ -18,10 +20,17 @@ interface dataAPI {
   styleUrls: ['./travel.page.scss'],
 })
 export class TravelPage implements OnInit {
+  //Creamos Encabezado
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    })
+  }
 
   viajes: dataAPI[] = [];
 
-  constructor(private auth: AutenticacionService, private api: ApiService) { }
+  constructor(private auth: AutenticacionService, private api: ApiService,private emailService: EmailService) { }
   public mensaje = ""
   public user = {
     usuario: ""
@@ -82,7 +91,7 @@ export class TravelPage implements OnInit {
     if (this.viajeSeleccionado && this.viajeSeleccionado.emails) {
       if (this.nuevoEmail != '') {
         const viajeElegido = this.viajes.find(viaje => viaje.id === this.viajeSeleccionado.id);
-  
+
         if (viajeElegido) {
           if (viajeElegido.emails.length == viajeElegido.capacidad) {
             this.mensaje = "No puede reservar, auto con capacidad máxima";
@@ -91,13 +100,16 @@ export class TravelPage implements OnInit {
             }, 3000);
           } else {
             this.viajeSeleccionado.emails.push(this.nuevoEmail);
-  
+
             this.api.updatePost(this.viajeSeleccionado.id, this.viajeSeleccionado).subscribe(
               (success) => {
                 this.mensaje = "Reserva realizada";
                 console.log("Viaje actualizado con nuevo email");
-                const destinatarioEmails = viajeElegido.emails;
-                console.log('Correo del destinatario:', destinatarioEmails);
+                this.enviarCorreo(
+                  viajeElegido.emails,
+                  'Reserva Exitosa',
+                  `¡Gracias por reservar el viaje!\n\nDetalles del Viaje:\nInicio: ${viajeElegido.inicio}\nTermino: ${viajeElegido.termino}\nCosto: ${viajeElegido.costo}`,
+                );
               },
               (error) => {
                 console.error(error);
@@ -118,6 +130,17 @@ export class TravelPage implements OnInit {
         this.mensaje = "";
       }, 2000);
     }
+  }
+
+  enviarCorreo(destinatarios: string[], asunto: string, contenido: string) {
+    this.emailService.sendEmail(destinatarios, asunto, contenido).subscribe(
+      (response) => {
+        console.log('Correo enviado con éxito:', response);
+      },
+      (error) => {
+        console.error('Error al enviar el correo:', error);
+      }
+    );
   }
 
   volver(): string {

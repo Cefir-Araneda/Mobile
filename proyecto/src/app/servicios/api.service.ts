@@ -95,16 +95,4 @@ export class ApiService {
     );
   }
 
-  //Envia Correo
-  enviarCorreo(destinatario: string, asunto: string, contenido: string) {
-    const url = 'http://localhost:3000/enviar-correo';
-    const correo = { destinatario, asunto, contenido };
-  
-    this.http.post(url, correo)
-      .subscribe(
-        (response) => console.log(response),
-        (error) => console.error(error)
-      );
-  }
-
 }
