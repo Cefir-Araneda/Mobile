@@ -6,16 +6,25 @@ const app = express();
 
 app.use(bodyParser.json());
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'noreplydcuctravel@gmail.com',
+    pass: 'Movil12348765.'
+  }
+});
+
 app.post('/enviar-correo', (req, res) => {
-  const { destinatario, asunto, contenido } = req.body;
+  const { destinatarios, asunto, contenido } = req.body;
 
   const mailOptions = {
     from: 'noreplydctravel@gmail.com',
-    to: destinatario,
+    to: destinatarios.join(', '), 
     subject: asunto,
     text: contenido
   };
 
+  // Enviar el correo
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error(error);
