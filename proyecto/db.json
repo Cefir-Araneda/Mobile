@@ -14,7 +14,7 @@
     },
     {
       "username": "myla",
-      "password": "myla1234",
+      "password": "11111111",
       "rol": "Conductor",
       "id": 3
     }
@@ -28,8 +28,6 @@
       "capacidad": 4,
       "costo": 500,
       "emails": [
-        "ai.arenas@duocuc.cl",
-        "ai.arenas@duocuc.cl",
         "ai.arenas@duocuc.cl"
       ]
     },
@@ -41,8 +39,7 @@
       "capacidad": 2,
       "costo": 1000,
       "emails": [
-        "kaishery.corv@gmail.com",
-        "ai.arenas@duocuc.cl"
+        "kaishery.corv@gmail.com"
       ]
     },
     {

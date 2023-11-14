@@ -16,7 +16,9 @@ export class ForgotPage implements OnInit {
   public alertButtons = ['Ok'];
 
   public credentials = {
-    username: ""
+    username: "",
+    password: "",
+    rol: ""
   }
 
   ngOnInit() {
@@ -33,18 +35,29 @@ export class ForgotPage implements OnInit {
     if (this.credentials.username === '') {
       console.log("Por favor ingrese un nombre de usuario");
       this.mensaje = "Por favor ingrese un nombre de usuario";
-    } else {
+    } else if (this.credentials.password === '') {
+      console.log("Por favor ingrese contraseña");
+      this.mensaje = "Por favor ingrese contraseña";
+    } else if (this.credentials.password.length < 8) {
+      console.log("Contraseña con menos de 8 caracteres");
+      this.mensaje = "Contraseña con menos de 8 caracteres";
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2500);
+    }else {
       // Verificar si el usuario existe
       this.api.getPostsL().subscribe(
         (users) => {
           const existeUsuario = users.find((user: any) => user.username === this.credentials.username);
           if (existeUsuario) {
-            // El usuario existe, obtenenemos ID y eliminamos
-            const Id = existeUsuario.id; 
-            this.api.deletePostL(Id).subscribe(
+            // El usuario existe, obtenenemos ID y updateamos
+            const Id = existeUsuario.id;
+            this.credentials.rol = existeUsuario.rol
+            this.api.getPostL(Id)
+            this.api.updatePostL(Id,this.credentials).subscribe(
               (success) => {
-                console.log("Se borró :D");
-                this.mensaje = "Usuario eliminado, puede registrarse nuevamente";
+                console.log("Se cambió :D");
+                this.mensaje = "Usuario actualizado correctamente, ya puede ingresar nuevamente";
                 {
                 setTimeout(() => {
                   this.mensaje = "";
