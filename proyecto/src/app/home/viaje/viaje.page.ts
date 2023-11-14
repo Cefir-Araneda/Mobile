@@ -64,11 +64,9 @@ export class ViajePage implements OnInit {
 
 
   add() {
-    console.log(this.viaje);
     const capacidadMaxima = 4;
     const valorMaximo = 3000;
-    this.viaje.chofer = this.auth.username
-    if (this.viaje.inicio === '' || this.viaje.termino === '' || this.viaje.emails.length === 0) {
+    if (this.viaje.inicio === '' || this.viaje.termino === '') {
       console.log("Algun campo no tiene valor");
       this.mensaje = "Algun campo no tiene valor";
       setTimeout(() => {
@@ -91,10 +89,12 @@ export class ViajePage implements OnInit {
       }, 2000);
     }
     else {
+      this.viaje.chofer = this.auth.username
       this.api.createPost(this.viaje).subscribe((success) => {
         this.datosAPI = "Agregado con Exito  ";
         this.mensaje = "Ruta guardada con exito"
         console.log("Funciono")
+        console.log(this.viaje);
         setTimeout(() => {
           this.mensaje = "";
           this.router.navigate(['/home']);
