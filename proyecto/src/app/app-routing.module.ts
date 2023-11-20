@@ -35,17 +35,13 @@ const routes: Routes = [
     loadChildren: () => import('./passenger/travel/travel.module').then( m => m.TravelPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
-  },  {
     path: 'mapa',
     loadChildren: () => import('./mapa/mapa.module').then( m => m.MapaPageModule)
   },
-
-  
-
-  
-
+  {
+    path: '**',
+    loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
+  },
 
 ];
 

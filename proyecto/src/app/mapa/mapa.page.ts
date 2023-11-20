@@ -12,7 +12,7 @@ export class MapaPage implements OnInit {
 
   ngOnInit() {
   }
-
+  
   async printCurrentPosition() {
     try {
       const coordinates = await Geolocation.getCurrentPosition();
@@ -21,5 +21,6 @@ export class MapaPage implements OnInit {
       console.error('Error al obtener la posición actual', error);
     }
   }
+
 
 }
