@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/servicios/api.service';
 import type { Animation } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service';
 import { first } from 'rxjs/operators';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,15 @@ export class LoginPage {
       .direction('alternate')
       .fromTo('background', '#3AAFB9', 'var(--background)');
     this.animation.play()
+  }
+
+  async printCurrentPosition() {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      console.log('Posición actual:', coordinates);
+    } catch (error) {
+      console.error('Error al obtener la posición actual', error);
+    }
   }
 
   enviarInformacion() {
