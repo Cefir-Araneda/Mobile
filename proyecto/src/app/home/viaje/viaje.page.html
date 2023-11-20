@@ -20,32 +20,32 @@
   <div>
     <ion-item>
       <ion-icon class="icon" name="location-outline"></ion-icon>
-      <ion-input style="text-indent:15px" [(ngModel)]="viaje.inicio" label="Punto de partida" labelPlacement="floating" type="text"
-        maxlength="38"></ion-input>
+      <ion-input style="text-indent:15px" [(ngModel)]="viaje.inicio" label="Punto de partida" labelPlacement="floating"
+        type="text" maxlength="38"></ion-input>
     </ion-item>
     <br>
     <ion-item>
       <ion-icon class="icon" name="location-sharp">
-      </ion-icon><ion-input style="text-indent:15px" [(ngModel)]="viaje.termino" label="Punto de llegada" labelPlacement="floating" type="text"
-        maxlength="38"></ion-input>
+      </ion-icon><ion-input style="text-indent:15px" [(ngModel)]="viaje.termino" label="Punto de llegada"
+        labelPlacement="floating" type="text" maxlength="38"></ion-input>
     </ion-item>
     <br>
     <ion-item>
       <ion-icon class="icon" name="people-outline"></ion-icon>
-      <ion-input style="text-indent:15px" [(ngModel)]="viaje.capacidad" label="Capacidad del vehiculo" labelPlacement="floating" type="number"
-        max = 4 ></ion-input>
+      <ion-input style="text-indent:15px" [(ngModel)]="viaje.capacidad" label="Capacidad del vehiculo"
+        labelPlacement="floating" type="number" max=4></ion-input>
     </ion-item>
     <br>
     <ion-item>
       <ion-icon class="icon" name="cash-outline"></ion-icon>
-      <ion-input style="text-indent:15px" [(ngModel)]="viaje.costo" label="Costo por persona" labelPlacement="floating" type="number"
-        max="4"></ion-input>
+      <ion-input style="text-indent:15px" [(ngModel)]="viaje.costo" label="Costo por persona" labelPlacement="floating"
+        type="number" max="4"></ion-input>
     </ion-item>
     <br>
     <ion-item>
       <ion-icon class="icon" name="mail-outline"></ion-icon>
-      <ion-input style="text-indent:15px" [(ngModel)]="viaje.emails" label="Email" labelPlacement="floating" type="email"
-        maxlength="38"></ion-input>
+      <ion-input style="text-indent:15px" [(ngModel)]="viaje.emails" label="Email" labelPlacement="floating"
+        type="email" maxlength="38"></ion-input>
     </ion-item>
   </div>
   <br>
@@ -54,11 +54,11 @@
   </div>
   <div>
     <ion-card>
-        <ion-buttons>
-          <ion-button (click)="add()" size="small">
-            Guardar Ruta
-          </ion-button>
-        </ion-buttons>
+      <ion-buttons>
+        <ion-button (click)="add()" size="small">
+          Guardar Ruta
+        </ion-button>
+      </ion-buttons>
     </ion-card>
   </div>
 
