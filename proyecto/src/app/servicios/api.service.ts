@@ -9,12 +9,15 @@ export class ApiService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token, Origin, Authorization'
     })
   }
   
   //Creamos Objeto con la URL del APIRest
-  apiURL = 'http://localhost:3000';
+  apiURL = 'https://emnpopy9hl.execute-api.us-east-1.amazonaws.com';
+
 
   constructor(private http: HttpClient) { }
   //List All
@@ -68,7 +71,7 @@ export class ApiService {
 
   // R (Get one Object)
   getPostL(ID: any): Observable<any> {
-    return this.http.get(this.apiURL + "/credentials/" + ID).pipe(
+    return this.http.get(this.apiURL + "/readCredentials/" + ID).pipe(
       retry(3)
     )
   }
