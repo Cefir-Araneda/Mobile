@@ -68,3 +68,18 @@ ion-button {
     --color: white;
     --font-weight: 500;
 }
+
+capacitor-google-map {
+    display: inline-block;
+    width: 275px;
+    height: 400px;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent; // Establece el fondo como transparente
+}
