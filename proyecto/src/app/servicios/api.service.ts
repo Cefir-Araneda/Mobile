@@ -9,14 +9,12 @@ export class ApiService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-      'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token, Origin, Authorization'
+      'Access-Control-Allow-Origin': 'https://ribtpjqph3.execute-api.us-east-1.amazonaws.com/createCredential'
     })
   }
   
   //Creamos Objeto con la URL del APIRest
-  apiURL = 'https://emnpopy9hl.execute-api.us-east-1.amazonaws.com';
+  apiURL = 'https://ribtpjqph3.execute-api.us-east-1.amazonaws.com';
 
 
   constructor(private http: HttpClient) { }
@@ -57,35 +55,35 @@ export class ApiService {
 
   //List All
   getPostsL(): Observable<any> {
-    return this.http.get(this.apiURL + "/credentials/").pipe(
+    return this.http.get(this.apiURL + "/listCredentials").pipe(
       retry(3)
     );
   }
 
   // C (Create a post)
   createPostL(post: any): Observable<any> {
-    return this.http.post(this.apiURL + "/credentials/", post, this.httpOptions).pipe(
+    return this.http.post(this.apiURL + "/createCredential", post, this.httpOptions).pipe(
       retry(3)
     )
   }
 
   // R (Get one Object)
-  getPostL(ID: any): Observable<any> {
-    return this.http.get(this.apiURL + "/readCredentials/" + ID).pipe(
+  getPostL(username: any): Observable<any> {
+    return this.http.get(this.apiURL + "/readCredential/" + username).pipe(
       retry(3)
     )
   }
 
   // U (Update a post)
-  updatePostL(ID: any, post: any): Observable<any> {
-    return this.http.put(this.apiURL + "/credentials/" + ID, post, this.httpOptions).pipe(
+  updatePostL(username: any, post: any): Observable<any> {
+    return this.http.put(this.apiURL + "/updateCredential/" + username, post, this.httpOptions).pipe(
       retry(3)
     )
   }
 
   // D (Delete a post)
-  deletePostL(ID: any): Observable<any> {
-    return this.http.delete(this.apiURL + "/credentials/" + ID).pipe(
+  deletePostL(username: any): Observable<any> {
+    return this.http.delete(this.apiURL + "/deleteCredential" + username).pipe(
       retry(3)
     )
   }
