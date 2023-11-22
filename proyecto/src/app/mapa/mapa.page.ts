@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AutenticacionService } from '../servicios/autenticacion.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { GoogleMap } from '@capacitor/google-maps';
@@ -10,7 +10,8 @@ import { Capacitor } from '@capacitor/core';
   styleUrls: ['./mapa.page.scss'],
 })
 export class MapaPage implements OnInit {
-
+  @ViewChild('map') mapRef!: ElementRef<HTMLElement>;
+  newMap!: GoogleMap;
   constructor(private auth: AutenticacionService) { }
   public user = {
     usuario: ""
@@ -21,22 +22,28 @@ export class MapaPage implements OnInit {
       usuario: this.auth.username
     }
 
+  }
+  ngAfterViewInit() {
     if (Capacitor.isPluginAvailable('GoogleMaps')) {
       this.createGoogleMap();
       console.log("Esto funca");
-      
+
+    } else {
+      this.createGoogleMap();
+      console.log("No funciona")
     }
+
   }
 
   // Esto es de Maps
   async createGoogleMap() {
-    const apiKey = 'AIzaSyAAaYutH33JmuJZCyAcuo33IcmxLGSWj9g';
-    
+    const apiKey = 'AIzaSyC6uufOewfJJzchCGopXNJp6bDQkksC6Vg';
+
     try {
-      const mapRef = document.getElementById('map');
-      
+      const mapRef = this.mapRef.nativeElement;
+
       if (mapRef) {
-        const newMap = await GoogleMap.create({
+        this.newMap = await GoogleMap.create({
           id: 'my-map',
           element: mapRef,
           apiKey: apiKey,
@@ -55,7 +62,7 @@ export class MapaPage implements OnInit {
       console.error('Error al crear el mapa', error);
     }
   }
-  
+
   // Esto es de Geolocation
   async printCurrentPosition() {
     try {
@@ -63,10 +70,11 @@ export class MapaPage implements OnInit {
       const { latitude, longitude } = coordinates.coords;
       const latitud = document.getElementById('latitud');
       const longitud = document.getElementById('longitud');
-  
+
       if (latitud !== null && longitud !== null) {
         latitud.innerHTML = `${latitude}`;
         longitud.innerHTML = `${longitude}`;
+        console.log('funciona')
       } else {
         console.error('Elemento con el ID "latitud" o "longitud" no encontrado en el DOM');
       }
@@ -75,4 +83,3 @@ export class MapaPage implements OnInit {
     }
   }
 }
-  

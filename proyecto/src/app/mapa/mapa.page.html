@@ -25,17 +25,17 @@
     <ion-item>
       <ion-input style="text-indent:15px" id="longitud" value="Longitud"></ion-input>
     </ion-item>
-  <br>
-  <div>
-    <ion-card>
-      <ion-buttons>
-        <ion-button (click)="printCurrentPosition()"> Ubicacion actual </ion-button>
-      </ion-buttons>
-    </ion-card>
-  </div>
+    <br>
+    <div>
+      <ion-card>
+        <ion-buttons>
+          <ion-button (click)="printCurrentPosition()"> Ubicacion actual </ion-button>
+        </ion-buttons>
+      </ion-card>
+    </div>
 
 
-  <ion-grid>
-  </ion-grid>
-  
-  <!-- <capacitor-google-map id="map"></capacitor-google-map> -->
+    <ion-grid>
+    </ion-grid>
+
+    <capacitor-google-map id="map" #map></capacitor-google-map>
