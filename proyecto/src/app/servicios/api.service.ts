@@ -30,7 +30,7 @@ export class ApiService {
   // C (Create a post)
   createPost(post: any): Observable<any> {
     return this.http.post(this.apiURL + "/viaje", post, this.httpOptions).pipe(
-      retry(3)
+      retry(1)
     )
   }
 
@@ -63,8 +63,8 @@ export class ApiService {
   }
 
   // C (Create a post)
-  createCredential(post: any): Observable<any> {
-    return this.http.post(this.apiURL + "/createCredential", post, this.httpOptions).pipe(
+  createCredential(credentials: any): Observable<any> {
+    return this.http.post(this.apiURL + "/createCredential", credentials, this.httpOptions).pipe(
       retry(3)
     )
   }

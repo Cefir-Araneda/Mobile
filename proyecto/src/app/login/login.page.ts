@@ -95,6 +95,7 @@ export class LoginPage {
   }
 
   confirm() {
+    this.api.createCredential(this.credentials)
     if (this.credentials.username === '' || this.credentials.password === '') {
       console.log("Algun campo no tiene valor");
       this.mensaje = "Algun campo no tiene valor";
@@ -107,51 +108,6 @@ export class LoginPage {
       setTimeout(() => {
         this.mensaje = "";
       }, 2500);
-<<<<<<< Updated upstream
-    }else if (this.credentials.rol === '') {
-        console.log("Ningun rol seleccionado");
-        this.mensaje = "Ningun rol seleccionado";
-        setTimeout(() => {
-          this.mensaje = "";
-        }, 2500);
-      }
-      else {
-        // Verificar si el nombre de usuario ya existe
-        this.api.getPostsL().pipe(first()).subscribe(
-          (users) => {
-            const existeUsuario = users.find((user: any) => user.username === this.credentials.username);
-            if (existeUsuario) {
-              console.log("Nombre de usuario ya existe");
-              this.mensaje = "Usuario existente";
-              setTimeout(() => {
-                this.mensaje = "";
-              }, 2500);
-            } else {
-              // El nombre de usuario no existe, proceder con el registro
-              console.log(this.credentials);
-              this.api.createPostL(this.credentials).subscribe(
-                (success) => {
-                  this.mensaje = "Registro Exitoso";
-                  console.log("Funcionaaaa :D");
-                  setTimeout(() => {
-                    this.mensaje = "";
-                  }, 2000);
-                },
-                (err) => {
-                  console.error(err);
-                }
-              );
-              setTimeout(() => {
-                this.modal.dismiss(this.credentials.username, 'confirm');
-              }, 2000);
-            }
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
-      }
-=======
     } else if (this.credentials.rol === '') {
       console.log("Ningun rol seleccionado");
       this.mensaje = "Ningun rol seleccionado";
@@ -159,22 +115,41 @@ export class LoginPage {
         this.mensaje = "";
       }, 2500);
     } else {
-      console.log(this.credentials);
-      this.api.createCredential(this.credentials).subscribe(
-        () => {
-          this.mensaje = "Registro Exitoso";
-          console.log("Funcionaaaa :D");
-          setTimeout(() => {
-            this.mensaje = "";
-          }, 2000);
+      // Verificar si el nombre de usuario ya existe
+      this.api.listCredentials().subscribe(
+        (success: any[]) => {
+          console.log(this.credentials);
+          console.log("Respuesta de la API:", success);
+          // Verificar si el usuario existe en la lista recibida
+          const userExists = success.some((cred: { username: string }) => cred.username === this.credentials.username);
+          if (userExists) {
+            console.log("Nombre de usuario ya existe");
+            this.mensaje = "Usuario existente";
+            setTimeout(() => {
+              this.mensaje = "";
+            }, 2500);
+          } else {
+            // El nombre de usuario no existe, proceder con el registro
+            console.log(this.credentials);
+            this.api.createCredential(this.credentials).subscribe(
+              () => {
+                this.mensaje = "Registro Exitoso";
+                console.log("Funcionaaaa :D");
+                setTimeout(() => {
+                  this.mensaje = "";
+                  this.modal.dismiss(this.credentials.username, 'confirm');
+                }, 2000);
+              },
+              (err: any) => {
+                console.error(err);
+              }
+            );
+          }
         },
         (err: any) => {
-          console.error(err);
+          console.error("Error al obtener las credenciales:", err);
         }
       );
-      setTimeout(() => {
-        this.modal.dismiss(this.credentials.username, 'confirm');
-      }, 2000);
->>>>>>> Stashed changes
     }
   }
+}
