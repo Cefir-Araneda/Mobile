@@ -47,7 +47,7 @@ export class LoginPage {
       .then(() => {
         if (this.auth.autenticado) {
           // Busca al usuario en la bdd
-          this.api.getPostsL().subscribe(
+          this.api.listCredentials().subscribe(
             (users) => {
               const buscaUsuario = users.find((user: any) => user.username === this.credentials.username);
               if (buscaUsuario) {
@@ -107,37 +107,30 @@ export class LoginPage {
       setTimeout(() => {
         this.mensaje = "";
       }, 2500);
-    }else if (this.credentials.rol === '') {
-        console.log("Ningun rol seleccionado");
-        this.mensaje = "Ningun rol seleccionado";
-        setTimeout(() => {
-          this.mensaje = "";
-        }, 2500);
-      }
-      else {{
-              // El nombre de usuario no existe, proceder con el registro
-              console.log(this.credentials);
-              this.api.createPostL(this.credentials).subscribe(
-                (success) => {
-                  this.mensaje = "Registro Exitoso";
-                  console.log("Funcionaaaa :D");
-                  setTimeout(() => {
-                    this.mensaje = "";
-                  }, 2000);
-                },
-                (err) => {
-                  console.error(err);
-                }
-              );
-              setTimeout(() => {
-                this.modal.dismiss(this.credentials.username, 'confirm');
-              }, 2000);
-            }
-        //  },
-          (error:any) => {
-            console.error(error);
-          }
-      //  );
-      }
+    } else if (this.credentials.rol === '') {
+      console.log("Ningun rol seleccionado");
+      this.mensaje = "Ningun rol seleccionado";
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2500);
+    } else {
+      console.log(this.credentials);
+      this.api.createPostL(this.credentials).subscribe(
+        () => {
+          this.mensaje = "Registro Exitoso";
+          console.log("Funcionaaaa :D");
+          setTimeout(() => {
+            this.mensaje = "";
+          }, 2000);
+        },
+        (err: any) => {
+          console.error(err);
+        }
+      );
+  
+      setTimeout(() => {
+        this.modal.dismiss(this.credentials.username, 'confirm');
+      }, 2000);
     }
   }
+}

@@ -46,15 +46,15 @@ export class ForgotPage implements OnInit {
       }, 2500);
     }else {
       // Verificar si el usuario existe
-      this.api.getPostsL().subscribe(
+      this.api.listCredentials().subscribe(
         (users) => {
           const existeUsuario = users.find((user: any) => user.username === this.credentials.username);
           if (existeUsuario) {
             // El usuario existe, obtenenemos ID y updateamos
             const Id = existeUsuario.id;
             this.credentials.rol = existeUsuario.rol
-            this.api.getPostL(Id)
-            this.api.updatePostL(Id,this.credentials).subscribe(
+            this.api.readCredential(Id)
+            this.api.updateCredential(Id,this.credentials).subscribe(
               (success) => {
                 console.log("Se cambió :D");
                 this.mensaje = "Usuario actualizado correctamente, ya puede ingresar nuevamente";
@@ -79,7 +79,7 @@ export class ForgotPage implements OnInit {
             }, 2500);
           }
         },
-        (error) => {
+        (error:any) => {
           console.error(error);
         }
       );
