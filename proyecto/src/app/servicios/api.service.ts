@@ -62,31 +62,40 @@ export class ApiService {
     );
   }
 
-  // C (Create a post de credentials)
-  createCredential(credential: any): Observable<any> {
-    return this.http.post(`${this.apiURL}/createCredential`, credential);
+  // C (Create a post)
+  createCredential(post: any): Observable<any> {
+    return this.http.post(this.apiURL + "/createCredential", post, this.httpOptions).pipe(
+      retry(3)
+    )
   }
 
-  // R (Get one Object de credentials)
-  readCredential(id: string): Observable<any> {
-    return this.http.get(`${this.apiURL}/readCredential/${id}`);
+  // R (Get one Object)
+  readCredential(username: any): Observable<any> {
+    return this.http.get(this.apiURL + "/readCredential" + username).pipe(
+      retry(3)
+    )
   }
 
-  // U (Update a post de credentials)
-  updateCredential(id: string, credential: any): Observable<any> {
-    return this.http.put(`${this.apiURL}/updateCredential/${id}`, credential);
+  // U (Update a post)
+  updateCredential(username: any, post: any): Observable<any> {
+    return this.http.put(this.apiURL + "/updateCredential" + username, post, this.httpOptions).pipe(
+      retry(3)
+    )
   }
 
-  // D (Delete a post de credentials)
-  deleteCredential(id: string): Observable<any> {
-    return this.http.delete(`${this.apiURL}/deleteCredential/${id}`);
+  // D (Delete a post)
+  deleteCredential(username: any): Observable<any> {
+    return this.http.delete(this.apiURL + "/deleteCredential" + username).pipe(
+      retry(3)
+    )
   }
 
-  //Pal login
+  //Pal login (hacer funcion)
   verificarCredenciales(username: string, password: string): Observable<any> {
     const credentials = { username, password };
     return this.http.post(this.apiURL + '/credentials/', credentials, this.httpOptions).pipe(
       retry(3)
     );
   }
+
 }

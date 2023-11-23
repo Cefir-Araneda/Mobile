@@ -107,6 +107,7 @@ export class LoginPage {
       setTimeout(() => {
         this.mensaje = "";
       }, 2500);
+<<<<<<< Updated upstream
     }else if (this.credentials.rol === '') {
         console.log("Ningun rol seleccionado");
         this.mensaje = "Ningun rol seleccionado";
@@ -150,5 +151,30 @@ export class LoginPage {
           }
         );
       }
+=======
+    } else if (this.credentials.rol === '') {
+      console.log("Ningun rol seleccionado");
+      this.mensaje = "Ningun rol seleccionado";
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2500);
+    } else {
+      console.log(this.credentials);
+      this.api.createCredential(this.credentials).subscribe(
+        () => {
+          this.mensaje = "Registro Exitoso";
+          console.log("Funcionaaaa :D");
+          setTimeout(() => {
+            this.mensaje = "";
+          }, 2000);
+        },
+        (err: any) => {
+          console.error(err);
+        }
+      );
+      setTimeout(() => {
+        this.modal.dismiss(this.credentials.username, 'confirm');
+      }, 2000);
+>>>>>>> Stashed changes
     }
   }
