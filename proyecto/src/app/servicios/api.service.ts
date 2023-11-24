@@ -40,7 +40,6 @@ export class ApiService {
   }
 
   updateTravel(id: any, post: any): Observable<any> {
-    console.log(id)
     return this.http.put(this.apiURL + "/updateTravel/" + id, post, this.httpOptions).pipe(
       retry(3)
     )
@@ -81,13 +80,4 @@ export class ApiService {
       retry(3)
     )
   }
-
-  //Pal login (hacer funcion)
-  verificarCredenciales(username: string, password: string): Observable<any> {
-    const credentials = { username, password };
-    return this.http.post(this.apiURL + '/credentials/', credentials, this.httpOptions).pipe(
-      retry(3)
-    );
-  }
-
 }
