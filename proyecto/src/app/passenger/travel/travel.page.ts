@@ -37,14 +37,7 @@ export class TravelPage implements OnInit {
 
   public datosAPI = "";
 
-  public viaje = {
-    chofer: "",
-    inicio: "",
-    termino: "",
-    capacidad: 0,
-    costo: 0,
-    emails: []
-  }
+  public emails= []
 
   viajeSeleccionado: any;
   nuevoEmail: string = "";
@@ -78,9 +71,9 @@ export class TravelPage implements OnInit {
                 this.mensaje = "";
               }, 3000);
             } else {
+              this.viajeSeleccionado.emails.push(this.nuevoEmail);
               console.log(this.viajeSeleccionado.emails)
-              console.log(this.nuevoEmail)
-              this.api.updateTravel(this.viajeSeleccionado.id, this.viaje.emails).subscribe(
+              this.api.updateTravel(this.viajeSeleccionado.id, this.viajeSeleccionado).subscribe(
                 (success: any) => {
                   this.mensaje = "Reserva realizada";
                   console.log("Viaje actualizado con nuevo email");
