@@ -1,0 +1,25 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" id="title" #title>Inicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button default-href="volver()"></ion-back-button>
+        </ion-buttons>
+        <ion-title></ion-title>
+      </ion-toolbar>
+    </ion-header>
+      <div id="welcome">
+        <ion-label>Hola usuario: {{user.usuario}}!</ion-label>
+        <p style="color: black"> ¿Que quieres hacer?</p>
+      </div>
+      <ion-grid>
+        <ion-row class="ion-justify-content-around">
+          <ion-col id="disabled" size="4"  ><ion-icon name="location-sharp"></ion-icon><br>Programar viaje</ion-col>
+          <ion-col (click)="buscar()" size="4"><ion-icon name="car-sharp"></ion-icon><br>Buscar vehiculo</ion-col>
+        </ion-row>
+      </ion-grid>

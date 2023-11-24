@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" id="title" #title>Viaje</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="volver()"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Ruta de Viaje</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div id="welcome">
+    <ion-label>Hola {{user.usuario}}!</ion-label>
+    <p style="color: black"> Esta es tu ubicacion actual:</p>
+  </div>
+  <div>
+    <ion-item>
+      <ion-input style="text-indent:15px" id="latitud" value="Latitud"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-input style="text-indent:15px" id="longitud" value="Longitud"></ion-input>
+    </ion-item>
+    <br>
+    <div>
+      <ion-card>
+        <ion-buttons>
+          <ion-button (click)="printCurrentPosition()"> Ubicacion actual </ion-button>
+        </ion-buttons>
+      </ion-card>
+    </div>
+
+
+    <ion-grid>
+    </ion-grid>
+
+    <div class="page-container">
+      <capacitor-google-map id="map" #map></capacitor-google-map>
+    </div>

@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/servicios/api.service';
+import { Router } from '@angular/router';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 interface dataAPI {
   id: Number,
+  chofer: String,
   inicio: String,
   termino: String,
   capacidad: Number,
-  costo: Number
+  costo: Number,
+  emails: String
 }
 
 @Component({
@@ -18,7 +20,7 @@ interface dataAPI {
 })
 export class ViajePage implements OnInit {
 
-  constructor(private router: Router, private auth: AutenticacionService, private api: ApiService) { }
+  constructor(private auth: AutenticacionService, private api: ApiService,private router: Router) { }
   public mensaje = ""
   public user = {
     usuario: ""
@@ -28,10 +30,12 @@ export class ViajePage implements OnInit {
 
   public viaje = {
     id: 0,
+    chofer:"",
     inicio: "",
     termino: "",
     capacidad: 0,
-    costo: 0
+    costo: 0,
+    emails: []
   }
 
   ngOnInit() {
@@ -46,26 +50,60 @@ export class ViajePage implements OnInit {
       console.log(res);
       res.forEach((tmp: dataAPI) => {
         this.datosAPI += tmp.id + "\n";
+        this.datosAPI += tmp.chofer + "\n";
         this.datosAPI += tmp.inicio + "\n";
         this.datosAPI += tmp.termino + "\n";
         this.datosAPI += tmp.capacidad + "\n";
         this.datosAPI += tmp.costo + "\n";
+        this.datosAPI += tmp.emails + "\n";
       });
     }, (error) => {
       console.log(error);
     })
   }
 
-  add() {
-    console.log(this.viaje);
-    this.api.createPost(this.viaje).subscribe((success) => {
-      this.datosAPI = "Agregado con Exito  ";
-      console.log("Funciono")
-    }, (err) => {
-      console.error(err);
-    })
-  }
 
+  add() {
+    const capacidadMaxima = 4;
+    const valorMaximo = 3000;
+    if (this.viaje.inicio === '' || this.viaje.termino === '') {
+      console.log("Algun campo no tiene valor");
+      this.mensaje = "Algun campo no tiene valor";
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2000);
+    }
+    else if (this.viaje.capacidad > capacidadMaxima) {
+      this.mensaje = "Excede capacidad maxima"
+      console.log("Excede capacidad maxima")
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2000);
+    }
+  
+    else if (this.viaje.costo > valorMaximo) {
+      this.mensaje = "Excede valor de costo maximo"
+      console.log("Excede valor de costo maximo")
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2000);
+    }
+    else {
+      this.viaje.chofer = this.auth.username
+      this.api.createPost(this.viaje).subscribe((success) => {
+        this.datosAPI = "Agregado con Exito  ";
+        this.mensaje = "Ruta guardada con exito"
+        console.log("Funciono")
+        console.log(this.viaje);
+        setTimeout(() => {
+          this.mensaje = "";
+          this.router.navigate(['/home']);
+        }, 2500);
+      }, (err) => {
+        console.error(err);
+      })
+    }
+  }
   volver(): string {
     return '/home';
   }

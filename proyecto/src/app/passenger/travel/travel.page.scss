@@ -1,0 +1,89 @@
+ion-content{
+    --ion-background-color:white;
+  }
+  
+  ion-toolbar {
+    --background: #3AAFB9;
+    text-align: center;
+    height: fit-content;
+  }
+  
+  ion-label{
+    color:black;
+    font-weight: 500;
+    --ion-color-success:#3AAFB9;
+  }
+
+  ion-title{
+    text-indent: -30px;
+  }
+  
+  #welcome{
+    padding-top: 25px;
+    text-indent: 40px;
+  }
+
+  ion-select{
+    text-indent: 10px;
+    align-items: center;
+    background-color: #3AAFB9;
+    color: white;
+    font-weight: 500;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    --highlight-color-focused: white;
+    --highlight-color-valid: white;
+    --padding-end:10px;
+    --ion-color-step-500:white;
+  }
+  
+  ion-input{
+    align-items: center;
+    background-color: white;
+    color: black;
+    border: 3px solid transparentize($color: #3AAFB9, $amount: 0.7) ;
+    border-radius: 50px;
+    margin-left: 10px;
+    margin-right: 20px;
+    --highlight-color:#3AAFB9;
+    --highlight-color-valid:#3AAFB9;
+    box-sizing: border-box;
+  }
+  ion-item{
+    --background:white;
+    --border-color: white;
+  }
+  .icon{
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    color: #3AAFB9;
+    padding-left: 23px;
+  }
+
+  #mensaje{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
+  ion-card{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    --background: #3AAFB9;
+    --background-hover: #64E9EE;
+    --color: white;
+    text-align: center;
+    width: fit-content;
+    margin-left: 38%;
+  }
+
+  ion-button{
+    --background: #3AAFB9;
+    --background-hover: #64E9EE;
+    --color: white;
+    --font-weight: 500;
+  }

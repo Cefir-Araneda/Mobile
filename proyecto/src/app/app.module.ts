@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { GoogleMap } from '@capacitor/google-maps';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,MatProgressBarModule,IonicStorageModule.forRoot(), HttpClientModule],

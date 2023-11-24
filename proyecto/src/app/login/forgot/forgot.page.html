@@ -13,8 +13,10 @@
           <ion-card-title >Reestablecer<br> Contraseña</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-              <ion-input id="user" [(ngModel)]="user.usuario" label="Nombre de Usuario" labelPlacement="floating"
-              placeholder="Ingrese su Usuario"></ion-input>
+              <ion-input id="user" [(ngModel)]="credentials.username" label="Nombre de Usuario" labelPlacement="floating"
+              placeholder="Ingrese su Usuario" type="text"></ion-input>
+              <ion-input id="pass" [(ngModel)]="credentials.password" label="Nueva Contraseña" labelPlacement="floating"
+              placeholder="Ingrese su Nueva Contraseña" type="password"></ion-input>
             <ion-button (click)="confirm()" size="small" >
               Reestablecer
             </ion-button>

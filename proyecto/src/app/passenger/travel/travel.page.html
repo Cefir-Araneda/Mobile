@@ -1,0 +1,52 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" id="title" #title>Viaje</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="volver()"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Viajes disponibles</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div id="welcome">
+    <ion-label>Hola {{user.usuario}}!</ion-label>
+    <p style="color: black"> ¿A dónde vamos hoy?</p>
+  </div>
+
+  <div>
+    <ion-list style="background: white;">
+      <ion-select placeholder="Seleccionar" [(ngModel)]="viajeSeleccionado">
+        <ion-select-option *ngFor="let v of viajes" [value]="v">
+          <ion-label>
+            Inicio: {{ v.inicio }}<br>
+            Termino: {{ v.termino }}<br>
+            Costo: {{ v.costo }}
+          </ion-label>
+        </ion-select-option>
+      </ion-select>
+    </ion-list>
+  </div>
+  <ion-item>
+    <ion-icon class="icon" name="mail-outline"></ion-icon>
+    <ion-input style="text-indent:15px" [(ngModel)]="nuevoEmail" label="Email" labelPlacement="floating" type="email"
+      maxlength="38"></ion-input>
+  </ion-item>
+  <br>
+  <div id="mensaje">
+    <ion-label style="color: #3AAFB9;">{{mensaje}}</ion-label>
+  </div>
+  <div>
+    <ion-card>
+        <ion-buttons>
+          <ion-button (click)="reserva()" size="small">
+            Reservar
+          </ion-button>
+        </ion-buttons>
+    </ion-card>
+  </div>
+</ion-content>

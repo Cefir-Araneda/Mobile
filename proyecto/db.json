@@ -1,35 +1,57 @@
 {
-  "posts": [
+  "credentials": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "username": "kovu",
+      "password": "kovu1234",
+      "rol": "Conductor",
+      "id": 1
+    },
+    {
+      "username": "fran",
+      "password": "fran1234",
+      "rol": "Pasajero",
+      "id": 2
+    },
+    {
+      "username": "myla",
+      "password": "11111111",
+      "rol": "Conductor",
+      "id": 3
     }
   ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
   "viaje": [
     {
       "id": 1,
-      "inicio": "duoc",
-      "termino": "casa",
-      "capacidad": 1,
-      "costo": 1
+      "chofer": "kovu",
+      "inicio": "Duoc UC",
+      "termino": "Carmen 110",
+      "capacidad": 4,
+      "costo": 500,
+      "emails": [
+        "ai.arenas@duocuc.cl"
+      ]
     },
     {
       "id": 2,
-      "inicio": "a",
-      "termino": "a",
-      "capacidad": "1",
-      "costo": "1"
+      "chofer": "kovu",
+      "inicio": "Duoc UC",
+      "termino": "Puente Alto",
+      "capacidad": 2,
+      "costo": 1000,
+      "emails": [
+        "kaishery.corv@gmail.com"
+      ]
+    },
+    {
+      "id": 3,
+      "chofer": "myla",
+      "inicio": "Universidad Catolica",
+      "termino": "Duoc UC",
+      "capacidad": 3,
+      "costo": 700,
+      "emails": [
+        "arenas.corv@gmail.com"
+      ]
     }
   ]
 }
