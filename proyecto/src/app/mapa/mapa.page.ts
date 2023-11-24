@@ -16,6 +16,8 @@ export class MapaPage implements OnInit {
   public user = {
     usuario: ""
   }
+  public latitude = 0;
+  public longitude = 0;
 
   ngOnInit() {
     this.user = {
@@ -41,6 +43,10 @@ export class MapaPage implements OnInit {
 
     try {
       const mapRef = this.mapRef.nativeElement;
+      const coordinates = await Geolocation.getCurrentPosition();
+      const { latitude, longitude } = coordinates.coords;
+      this.latitude = latitude;
+      this.longitude = longitude; 
 
       if (mapRef) {
         this.newMap = await GoogleMap.create({
@@ -49,12 +55,20 @@ export class MapaPage implements OnInit {
           apiKey: apiKey,
           config: {
             center: {
-              lat: 33.6,
-              lng: -117.9,
+              lat: this.latitude,
+              lng: this.longitude,
             },
-            zoom: 8,
+            zoom: 15,
           },
         });
+        // Agregar marcador
+        const markerId = await this.newMap.addMarker({
+          coordinate: {
+            lat: this.latitude,
+            lng: this.longitude,
+          },
+        });
+
       } else {
         console.error('Elemento con el ID "map" no encontrado en el DOM');
       }
@@ -68,6 +82,8 @@ export class MapaPage implements OnInit {
     try {
       const coordinates = await Geolocation.getCurrentPosition();
       const { latitude, longitude } = coordinates.coords;
+      this.latitude = latitude;
+      this.longitude = longitude; 
       const latitud = document.getElementById('latitud');
       const longitud = document.getElementById('longitud');
 
