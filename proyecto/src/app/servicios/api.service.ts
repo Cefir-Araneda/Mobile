@@ -56,7 +56,6 @@ export class ApiService {
 
   // C (Create a post)
   createCredential(credentials: any): Observable<any> {
-    console.log(credentials)
     return this.http.post(this.apiURL + "/createCredential", credentials, this.httpOptions).pipe(
       retry(3)
     )

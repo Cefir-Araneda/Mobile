@@ -80,7 +80,7 @@ export class TravelPage implements OnInit {
                 this.mensaje = "";
               }, 3000);
             } else {
-              const emailsActuales = Array.isArray(viaje.emails) ? viaje.emails : [];
+              const emailsActuales = Array.isArray(this.viajeSeleccionado.emails) ? viaje.emails : [];
   
               if (emailsActuales.includes(this.nuevoEmail)) {
                 this.mensaje = "Ya has registrado este correo";
@@ -91,6 +91,7 @@ export class TravelPage implements OnInit {
                 const nuevosEmails = emailsActuales.concat(this.nuevoEmail);
                 this.viaje = this.viajeSeleccionado
                 this.viaje.emails = nuevosEmails;
+                console.log(this.viaje)
                 this.api.updateTravel(this.viajeSeleccionado.id, this.viaje).subscribe(
                   (success: any) => {
                     this.mensaje = "Reserva realizada";
