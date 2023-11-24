@@ -10,7 +10,7 @@ interface dataAPI {
   termino: String,
   capacidad: Number,
   costo: Number,
-  emails: String
+  emails: String[]
 }
 
 @Component({
@@ -20,7 +20,7 @@ interface dataAPI {
 })
 export class ViajePage implements OnInit {
 
-  constructor(private auth: AutenticacionService, private api: ApiService,private router: Router) { }
+  constructor(private auth: AutenticacionService, private api: ApiService, private router: Router) { }
   public mensaje = ""
   public user = {
     usuario: ""
@@ -29,8 +29,7 @@ export class ViajePage implements OnInit {
   public datosAPI = "";
 
   public viaje = {
-    id: 0,
-    chofer:"",
+    chofer: "",
     inicio: "",
     termino: "",
     capacidad: 0,
@@ -44,25 +43,6 @@ export class ViajePage implements OnInit {
     }
   }
 
-  obtenerTodo() {
-    this.datosAPI = ""
-    this.api.getPosts().subscribe((res) => {
-      console.log(res);
-      res.forEach((tmp: dataAPI) => {
-        this.datosAPI += tmp.id + "\n";
-        this.datosAPI += tmp.chofer + "\n";
-        this.datosAPI += tmp.inicio + "\n";
-        this.datosAPI += tmp.termino + "\n";
-        this.datosAPI += tmp.capacidad + "\n";
-        this.datosAPI += tmp.costo + "\n";
-        this.datosAPI += tmp.emails + "\n";
-      });
-    }, (error) => {
-      console.log(error);
-    })
-  }
-
-
   add() {
     const capacidadMaxima = 4;
     const valorMaximo = 3000;
@@ -72,28 +52,27 @@ export class ViajePage implements OnInit {
       setTimeout(() => {
         this.mensaje = "";
       }, 2000);
-    }
-    else if (this.viaje.capacidad > capacidadMaxima) {
-      this.mensaje = "Excede capacidad maxima"
-      console.log("Excede capacidad maxima")
+    } else if (this.viaje.capacidad > capacidadMaxima) {
+      this.mensaje = "Excede capacidad máxima";
+      console.log("Excede capacidad máxima");
       setTimeout(() => {
         this.mensaje = "";
       }, 2000);
-    }
+    } else if (this.viaje.costo > valorMaximo) {
+      this.mensaje = "Excede valor de costo máximo";
+      console.log("Excede valor de costo máximo");
+      setTimeout(() => {
+        this.mensaje = "";
+      }, 2000);
+    } else {
+      this.viaje.chofer = this.auth.username;
+      const emailsActual = Array.isArray(this.viaje.emails) ? this.viaje.emails : [];
+      const conductormail = emailsActual.concat(this.viaje.emails);
+      this.viaje.emails = conductormail;
   
-    else if (this.viaje.costo > valorMaximo) {
-      this.mensaje = "Excede valor de costo maximo"
-      console.log("Excede valor de costo maximo")
-      setTimeout(() => {
-        this.mensaje = "";
-      }, 2000);
-    }
-    else {
-      this.viaje.chofer = this.auth.username
-      this.api.createPost(this.viaje).subscribe((success) => {
-        this.datosAPI = "Agregado con Exito  ";
-        this.mensaje = "Ruta guardada con exito"
-        console.log("Funciono")
+      this.api.createTravel(this.viaje).subscribe((success) => {
+        this.mensaje = "Ruta guardada con éxito";
+        console.log("Funcionó");
         console.log(this.viaje);
         setTimeout(() => {
           this.mensaje = "";
@@ -101,10 +80,11 @@ export class ViajePage implements OnInit {
         }, 2500);
       }, (err) => {
         console.error(err);
-      })
+      });
     }
   }
-  volver(): string {
-    return '/home';
+
+    volver(): string {
+      return '/home';
+    }
   }
-}

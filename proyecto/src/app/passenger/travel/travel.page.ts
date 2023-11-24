@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/servicios/api.service';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 interface dataAPI {
-  id: Number,
+  id: String,
   chofer: String
   inicio: String,
   termino: String,
@@ -38,8 +38,7 @@ export class TravelPage implements OnInit {
   public datosAPI = "";
 
   public viaje = {
-    id: 0,
-    chofer: "",
+    chofer:"",
     inicio: "",
     termino: "",
     capacidad: 0,
@@ -57,30 +56,12 @@ export class TravelPage implements OnInit {
     this.cargarViajes();
   }
 
-  obtenerTodo() {
-    this.datosAPI = ""
-    this.api.getPosts().subscribe((res) => {
-      console.log(res);
-      res.forEach((tmp: dataAPI) => {
-        this.datosAPI += tmp.id + "\n";
-        this.datosAPI += tmp.chofer + "\n";
-        this.datosAPI += tmp.inicio + "\n";
-        this.datosAPI += tmp.termino + "\n";
-        this.datosAPI += tmp.capacidad + "\n";
-        this.datosAPI += tmp.costo + "\n";
-        this.datosAPI += tmp.emails + "\n";
-      });
-    }, (error) => {
-      console.log(error);
-    })
-  }
-
   cargarViajes() {
-    this.api.getPosts().subscribe(
+    this.api.listTravels().subscribe(
       (data: dataAPI[]) => {
         this.viajes = data;
       },
-      (error) => {
+      (error: any) => {
         console.error(error);
       }
     );
@@ -88,28 +69,45 @@ export class TravelPage implements OnInit {
 
   reserva() {
     if (this.viajeSeleccionado && this.viajeSeleccionado.emails) {
-      if (this.nuevoEmail != '') {
-        const viajeElegido = this.viajes.find(viaje => viaje.id === this.viajeSeleccionado.id);
-
-        if (viajeElegido) {
-          if (viajeElegido.emails.length == viajeElegido.capacidad) {
-            this.mensaje = "No puede reservar, auto con capacidad máxima";
-            setTimeout(() => {
-              this.mensaje = "";
-            }, 3000);
-          } else {
-            this.viajeSeleccionado.emails.push(this.nuevoEmail);
-            this.api.updatePost(this.viajeSeleccionado.id, this.viajeSeleccionado).subscribe(
-              (success) => {
-                this.mensaje = "Reserva realizada";
-                console.log("Viaje actualizado con nuevo email");
-              },
-              (error) => {
-                console.error(error);
+      if (this.nuevoEmail !== '') {
+        this.api.getTravel(this.viajeSeleccionado.id).subscribe(
+          (success: any) => {
+            const viaje = success;
+  
+            if (Array.isArray(viaje.emails) && this.viajeSeleccionado.emails.length === this.viajeSeleccionado.capacidad) {
+              this.mensaje = "No puede reservar, auto con capacidad máxima";
+              setTimeout(() => {
+                this.mensaje = "";
+              }, 3000);
+            } else {
+              const emailsActuales = Array.isArray(this.viajeSeleccionado.emails) ? viaje.emails : [];
+  
+              if (emailsActuales.includes(this.nuevoEmail)) {
+                this.mensaje = "Ya has registrado este correo";
+                setTimeout(() => {
+                  this.mensaje = "";
+                }, 3000);
+              } else {
+                const nuevosEmails = emailsActuales.concat(this.nuevoEmail);
+                this.viaje = this.viajeSeleccionado
+                this.viaje.emails = nuevosEmails;
+                console.log(this.viaje)
+                this.api.updateTravel(this.viajeSeleccionado.id, this.viaje).subscribe(
+                  (success: any) => {
+                    this.mensaje = "Reserva realizada";
+                    console.log("Viaje actualizado con nuevo email");
+                  },
+                  (error: any) => {
+                    console.error(error);
+                  }
+                );
               }
-            );
+            }
+          },
+          (error: any) => {
+            console.error(error);
           }
-        }
+        );
       } else {
         this.mensaje = "No puede reservar sin escribir su correo";
         setTimeout(() => {
@@ -124,6 +122,8 @@ export class TravelPage implements OnInit {
       }, 2000);
     }
   }
+  
+
 
   volver(): string {
     return '/passenger';

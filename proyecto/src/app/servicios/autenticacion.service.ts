@@ -16,7 +16,7 @@ export class AutenticacionService {
 
   async verificarCredenciales(username: string, password: string): Promise<boolean> {
     try {
-      const usuarioAutenticado = await this.api.verificarCredenciales(username, password);
+      const usuarioAutenticado = await this.api.readCredential(username);
       if (usuarioAutenticado) {
         this.autenticado = true;
         this.username = username;
