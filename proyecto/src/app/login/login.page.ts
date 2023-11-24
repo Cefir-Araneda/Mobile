@@ -118,9 +118,7 @@ export class LoginPage {
       // Verificar si el nombre de usuario ya existe
       this.api.listCredentials().subscribe(
         (success: any[]) => {
-          console.log(this.credentials);
           console.log("Respuesta de la API:", success);
-          // Verificar si el usuario existe en la lista recibida
           const userExists = success.some((cred: { username: string }) => cred.username === this.credentials.username);
           if (userExists) {
             console.log("Nombre de usuario ya existe");
@@ -132,7 +130,7 @@ export class LoginPage {
             // El nombre de usuario no existe, proceder con el registro
             console.log(this.credentials);
             this.api.createCredential(this.credentials).subscribe(
-              () => {
+              (res: any[]) => {
                 this.mensaje = "Registro Exitoso";
                 console.log("Funcionaaaa :D");
                 setTimeout(() => {

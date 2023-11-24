@@ -9,9 +9,7 @@ export class ApiService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-      'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token, Origin, Authorization'
+      'Access-Control-Allow-Origin': '*'
     })
   }
 
@@ -64,6 +62,7 @@ export class ApiService {
 
   // C (Create a post)
   createCredential(credentials: any): Observable<any> {
+    console.log(credentials)
     return this.http.post(this.apiURL + "/createCredential", credentials, this.httpOptions).pipe(
       retry(3)
     )
