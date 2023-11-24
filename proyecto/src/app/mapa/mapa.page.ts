@@ -32,7 +32,7 @@ export class MapaPage implements OnInit {
 
     } else {
       this.createGoogleMap();
-      console.log("No funciona")
+      console.log("Creo el mapa de todos modos")
     }
 
   }

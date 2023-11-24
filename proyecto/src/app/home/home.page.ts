@@ -25,6 +25,10 @@ export class HomePage implements OnInit{
     this.router.navigate(['/viaje']);
   }
 
+  mapa() {
+    this.router.navigate(['/mapa']);
+  }
+
   volver(): string {
     return '/login';
   }
