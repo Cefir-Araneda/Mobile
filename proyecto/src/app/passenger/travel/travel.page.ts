@@ -37,7 +37,14 @@ export class TravelPage implements OnInit {
 
   public datosAPI = "";
 
-  public emails= []
+  public viaje = {
+    chofer:"",
+    inicio: "",
+    termino: "",
+    capacidad: 0,
+    costo: 0,
+    emails: []
+  }
 
   viajeSeleccionado: any;
   nuevoEmail: string = "";
@@ -65,24 +72,39 @@ export class TravelPage implements OnInit {
       if (this.nuevoEmail !== '') {
         this.api.getTravel(this.viajeSeleccionado.id).subscribe(
           (success: any) => {
-            if (this.viajeSeleccionado.emails.length === this.viajeSeleccionado.capacidad) {
+            const viaje = success;
+  
+            if (Array.isArray(viaje.emails) && this.viajeSeleccionado.emails.length === this.viajeSeleccionado.capacidad) {
               this.mensaje = "No puede reservar, auto con capacidad máxima";
               setTimeout(() => {
                 this.mensaje = "";
               }, 3000);
             } else {
-              this.viajeSeleccionado.emails.push(this.nuevoEmail);
-              console.log(this.viajeSeleccionado.emails)
-              this.api.updateTravel(this.viajeSeleccionado.id, this.viajeSeleccionado).subscribe(
-                (success: any) => {
-                  this.mensaje = "Reserva realizada";
-                  console.log("Viaje actualizado con nuevo email");
-                },
-                (error: any) => {
-                  console.error(error);
-                }
-              );
+              const emailsActuales = Array.isArray(viaje.emails) ? viaje.emails : [];
+  
+              if (emailsActuales.includes(this.nuevoEmail)) {
+                this.mensaje = "Ya has registrado este correo";
+                setTimeout(() => {
+                  this.mensaje = "";
+                }, 3000);
+              } else {
+                const nuevosEmails = emailsActuales.concat(this.nuevoEmail);
+                this.viaje = this.viajeSeleccionado
+                this.viaje.emails = nuevosEmails;
+                this.api.updateTravel(this.viajeSeleccionado.id, this.viaje).subscribe(
+                  (success: any) => {
+                    this.mensaje = "Reserva realizada";
+                    console.log("Viaje actualizado con nuevo email");
+                  },
+                  (error: any) => {
+                    console.error(error);
+                  }
+                );
+              }
             }
+          },
+          (error: any) => {
+            console.error(error);
           }
         );
       } else {
@@ -99,6 +121,7 @@ export class TravelPage implements OnInit {
       }, 2000);
     }
   }
+  
 
 
   volver(): string {
