@@ -50,11 +50,8 @@ export class ForgotPage implements OnInit {
         (users) => {
           const existeUsuario = users.find((user: any) => user.username === this.credentials.username);
           if (existeUsuario) {
-            // El usuario existe, obtenenemos ID y updateamos
-            const Id = existeUsuario.id;
             this.credentials.rol = existeUsuario.rol
-            this.api.readCredential(Id)
-            this.api.updateCredential(Id,this.credentials).subscribe(
+            this.api.updateCredential(this.credentials.username,this.credentials).subscribe(
               (success) => {
                 console.log("Se cambió :D");
                 this.mensaje = "Usuario actualizado correctamente, ya puede ingresar nuevamente";

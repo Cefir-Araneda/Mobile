@@ -64,14 +64,14 @@ export class ApiService {
 
   // R (Get one Object)
   readCredential(username: any): Observable<any> {
-    return this.http.get(this.apiURL + "/readCredential" + username).pipe(
+    return this.http.get(this.apiURL + "/readCredential/" + username).pipe(
       retry(3)
     )
   }
 
   // U (Update a post)
   updateCredential(username: any, post: any): Observable<any> {
-    return this.http.put(this.apiURL + "/updateCredential" + username, post, this.httpOptions).pipe(
+    return this.http.put(this.apiURL + "/updateCredential/" + username, post, this.httpOptions).pipe(
       retry(3)
     )
   }
