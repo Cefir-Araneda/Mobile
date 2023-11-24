@@ -34,7 +34,7 @@ export class ViajePage implements OnInit {
     termino: "",
     capacidad: 0,
     costo: 0,
-    emails: [""]
+    emails: []
   }
 
   ngOnInit() {
