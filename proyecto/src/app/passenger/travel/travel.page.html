@@ -21,7 +21,7 @@
   <div>
     <ion-list style="background: white;">
       <ion-select placeholder="Seleccionar" [(ngModel)]="viajeSeleccionado">
-        <ion-select-option *ngFor="let v of viajes" [value]="v">
+        <ion-select-option *ngFor="let v of viajes" [value]="v" value = {{v.id}}>
           <ion-label>
             Inicio: {{ v.inicio }}<br>
             Termino: {{ v.termino }}<br>

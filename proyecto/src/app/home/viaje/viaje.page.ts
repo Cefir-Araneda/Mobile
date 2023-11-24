@@ -29,7 +29,6 @@ export class ViajePage implements OnInit {
   public datosAPI = "";
 
   public viaje = {
-    id: 0,
     chofer:"",
     inicio: "",
     termino: "",
@@ -43,25 +42,6 @@ export class ViajePage implements OnInit {
       usuario: this.auth.username
     }
   }
-
-  obtenerTodo() {
-    this.datosAPI = ""
-    this.api.getPosts().subscribe((res) => {
-      console.log(res);
-      res.forEach((tmp: dataAPI) => {
-        this.datosAPI += tmp.id + "\n";
-        this.datosAPI += tmp.chofer + "\n";
-        this.datosAPI += tmp.inicio + "\n";
-        this.datosAPI += tmp.termino + "\n";
-        this.datosAPI += tmp.capacidad + "\n";
-        this.datosAPI += tmp.costo + "\n";
-        this.datosAPI += tmp.emails + "\n";
-      });
-    }, (error) => {
-      console.log(error);
-    })
-  }
-
 
   add() {
     const capacidadMaxima = 4;
@@ -90,7 +70,7 @@ export class ViajePage implements OnInit {
     }
     else {
       this.viaje.chofer = this.auth.username
-      this.api.createPost(this.viaje).subscribe((success) => {
+      this.api.createTravel(this.viaje).subscribe((success) => {
         this.datosAPI = "Agregado con Exito  ";
         this.mensaje = "Ruta guardada con exito"
         console.log("Funciono")
