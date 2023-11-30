@@ -76,7 +76,7 @@ export class ApiService {
 
   // D (Delete a post)
   deleteCredential(username: any): Observable<any> {
-    return this.http.delete(this.apiURL + "/deleteCredential" + username).pipe(
+    return this.http.delete(this.apiURL + "/deleteCredential/" + username).pipe(
       retry(3)
     )
   }
