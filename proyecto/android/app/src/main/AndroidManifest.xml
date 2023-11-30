@@ -9,6 +9,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- GOOGLE MAPS API -->
+        <meta-data 
+            android:name="com.google.android.geo.API_KEY" 
+            android:value="AIzaSyC6uufOewfJJzchCGopXNJp6bDQkksC6Vg"/>
+
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
             android:name=".MainActivity"
@@ -46,7 +51,6 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <!-- GOOGLE MAPS Permissions -->
-    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyC6uufOewfJJzchCGopXNJp6bDQkksC6Vg"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     
