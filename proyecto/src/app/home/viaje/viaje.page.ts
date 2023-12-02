@@ -100,7 +100,7 @@ export class ViajePage implements OnInit {
   volver(): string {
     return '/home';
   }
-  
+
   async printCurrentPosition() {
     try {
       const coordinates = await Geolocation.getCurrentPosition();
@@ -166,6 +166,9 @@ export class ViajePage implements OnInit {
       const origin = this.originMarker.getPosition() as google.maps.LatLng;
       const destination = this.currentMarker.getPosition() as google.maps.LatLng;
   
+      // Obtener las direcciones de origen y destino
+      this.getAddresses(origin, destination);
+  
       this.directionsService.route({
         origin: origin,
         destination: destination,
@@ -173,10 +176,63 @@ export class ViajePage implements OnInit {
       }, (response: any, status: string) => {
         if (status === google.maps.DirectionsStatus.OK) {
           this.directionsDisplay.setDirections(response);
+  
+          // Log de direcciones
+          const route = response.routes[0];
+          if (route) {
+            // Obtener la dirección de inicio
+            const leg = route.legs[0];
+            if (leg) {
+              const originAddress = leg.start_address;
+              console.log('Dirección de inicio:', originAddress);
+  
+              // Actualizar la variable 'inicio' con la dirección de inicio
+              this.viaje.inicio = originAddress;
+            } else {
+              console.error('Error al leer la pierna desde la ruta');
+            }
+  
+            // Obtener la dirección de destino
+            const destinationLeg = route.legs[route.legs.length - 1];
+            if (destinationLeg) {
+              const destinationAddress = destinationLeg.end_address;
+              console.log('Dirección de destino:', destinationAddress);
+  
+              // Actualizar la variable 'termino' con la dirección de destino
+              this.viaje.termino = destinationAddress;
+            } else {
+              console.error('Error al leer la pierna de destino desde la ruta');
+            }
+          } else {
+            console.error('Error al leer la ruta desde la respuesta');
+          }
         } else {
           alert('Could not display directions due to: ' + status);
         }
       });
     }
+  }   
+
+  private getAddresses(origin: google.maps.LatLng, destination: google.maps.LatLng) {
+    const geocoder = new google.maps.Geocoder();
+  
+    // Obtener la dirección de origen
+    geocoder.geocode({ location: origin }, (results, status) => {
+      if (status === 'OK' && results && results.length > 0) {
+        this.viaje.inicio = results[0].formatted_address;
+      } else {
+        console.error('Error obtaining origin address:', status);
+      }
+    });
+  
+    // Obtener la dirección de destino
+    geocoder.geocode({ location: destination }, (results, status) => {
+      if (status === 'OK' && results && results.length > 0) {
+        this.viaje.termino = results[0].formatted_address;
+      } else {
+        console.error('Error obtaining destination address:', status);
+      }
+    });
   }
+  
 }
