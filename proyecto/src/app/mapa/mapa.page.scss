@@ -2,6 +2,20 @@ ion-content {
     --ion-background-color: white;
 }
 
+ion-content {
+    #map {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 150ms ease-in;
+        display: block;
+
+        &.show-map {
+            opacity: 1;
+        }
+    }
+}
+
 ion-toolbar {
     --background: #3AAFB9;
     text-align: center;
