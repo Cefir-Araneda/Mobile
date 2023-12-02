@@ -10,6 +10,7 @@ export class AutenticacionService {
   public mensaje = ""
   public autenticado!: boolean;
   public username: string = '';
+  public password: string = '';
 
   constructor(private api: ApiService, private route: Router) {
   }
@@ -20,6 +21,7 @@ export class AutenticacionService {
       if (usuarioAutenticado) {
         this.autenticado = true;
         this.username = username;
+        this.password = password;
         return true;
       } else {
         return false;
@@ -33,6 +35,7 @@ export class AutenticacionService {
   logout() {
     this.autenticado = false;
     this.username = '';
+    this.password = '';
     this.route.navigate(['/login']);
   }
 }

@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AutenticacionService } from '../servicios/autenticacion.service';
 import { Geolocation } from '@capacitor/geolocation';
-import { GoogleMap } from '@capacitor/google-maps';
-import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-mapa',
@@ -11,91 +9,105 @@ import { Capacitor } from '@capacitor/core';
 })
 export class MapaPage implements OnInit {
   @ViewChild('map') mapRef!: ElementRef<HTMLElement>;
-  newMap!: GoogleMap;
   constructor(private auth: AutenticacionService) { }
   public user = {
     usuario: ""
   }
+
+  map: google.maps.Map | null = null;
+  originMarker: google.maps.Marker | null = null; // Marcador inicial llamado "Origen"
+  currentMarker: google.maps.Marker | null = null; // Nueva línea para mantener la referencia al marcador actual
+
   public latitude = 0;
   public longitude = 0;
+
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer();
 
   ngOnInit() {
     this.user = {
       usuario: this.auth.username
-    }
-
-  }
-  ngAfterViewInit() {
-    if (Capacitor.isPluginAvailable('GoogleMaps')) {
-      this.createGoogleMap();
-      console.log("Esto funca");
-
-    } else {
-      this.createGoogleMap();
-      console.log("Creo el mapa de todos modos")
-    }
-
+    };
+    this.printCurrentPosition();
+    console.log("Esto funciona");
   }
 
-  // Esto es de Maps
-  async createGoogleMap() {
-    const apiKey = 'AIzaSyC6uufOewfJJzchCGopXNJp6bDQkksC6Vg';
-
-    try {
-      const mapRef = this.mapRef.nativeElement;
-      const coordinates = await Geolocation.getCurrentPosition();
-      const { latitude, longitude } = coordinates.coords;
-      this.latitude = latitude;
-      this.longitude = longitude; 
-
-      if (mapRef) {
-        this.newMap = await GoogleMap.create({
-          id: 'my-map',
-          element: mapRef,
-          apiKey: apiKey,
-          config: {
-            center: {
-              lat: this.latitude,
-              lng: this.longitude,
-            },
-            zoom: 15,
-          },
-        });
-        // Agregar marcador
-        const markerId = await this.newMap.addMarker({
-          coordinate: {
-            lat: this.latitude,
-            lng: this.longitude,
-          },
-        });
-
-      } else {
-        console.error('Elemento con el ID "map" no encontrado en el DOM');
-      }
-    } catch (error) {
-      console.error('Error al crear el mapa', error);
-    }
-  }
-
-  // Esto es de Geolocation
   async printCurrentPosition() {
     try {
       const coordinates = await Geolocation.getCurrentPosition();
       const { latitude, longitude } = coordinates.coords;
       this.latitude = latitude;
-      this.longitude = longitude; 
-      const latitud = document.getElementById('latitud');
-      const longitud = document.getElementById('longitud');
+      this.longitude = longitude;
 
-      if (latitud !== null && longitud !== null) {
-        latitud.innerHTML = `${latitude}`;
-        longitud.innerHTML = `${longitude}`;
-        console.log('funciona')
-      } else {
-        console.error('Elemento con el ID "latitud" o "longitud" no encontrado en el DOM');
-      }
+      this.loadMap();
     } catch (error) {
       console.error('Error al obtener la posición actual', error);
+    }
+  }
+
+  loadMap() {
+    const mapEle: HTMLElement | null = document.getElementById('map');
+    if (mapEle) {
+      this.map = new google.maps.Map(mapEle, {
+        center: { lat: this.latitude, lng: this.longitude },
+        zoom: 17,
+      });
+
+      this.originMarker = new google.maps.Marker({
+        position: { lat: this.latitude, lng: this.longitude },
+        title: 'Origen',
+        map: this.map,
+      });
+
+      this.directionsDisplay.setMap(this.map);
+
+      // Añadir evento de clic al mapa
+      google.maps.event.addListener(this.map, 'click', (event: any) => {
+        this.addMarker(event.latLng);
+      });
+
+      google.maps.event.addListenerOnce(this.map, 'idle', () => {
+        mapEle.classList.add('show-map');
+        // Puedes agregar otras acciones después de que el mapa se haya cargado completamente.
+      });
+    } else {
+      console.error('Elemento con el ID "map" no encontrado en el DOM');
+    }
+  }
+
+  addMarker(location: google.maps.LatLng) {
+    // Eliminar el marcador actual (excepto el marcador "Origen")
+    if (this.currentMarker && this.currentMarker !== this.originMarker) {
+      this.currentMarker.setMap(null);
+    }
+
+    // Agregar el nuevo marcador
+    this.currentMarker = new google.maps.Marker({
+      position: location,
+      map: this.map,
+      title: 'Nuevo Marcador',
+    });
+
+    // Calcular la ruta con el nuevo marcador
+    this.calculateRoute();
+  }
+
+  private calculateRoute() {
+    if (this.originMarker && this.currentMarker) {
+      const origin = this.originMarker.getPosition() as google.maps.LatLng;
+      const destination = this.currentMarker.getPosition() as google.maps.LatLng;
+  
+      this.directionsService.route({
+        origin: origin,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      }, (response: any, status: string) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.directionsDisplay.setDirections(response);
+        } else {
+          alert('Could not display directions due to: ' + status);
+        }
+      });
     }
   }
 }

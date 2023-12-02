@@ -4,7 +4,7 @@ import { IonCard, AnimationController, IonModal } from '@ionic/angular';
 import { ApiService } from 'src/app/servicios/api.service';
 import type { Animation } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service';
-import { first } from 'rxjs/operators';
+import { distinct, first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -51,18 +51,25 @@ export class LoginPage {
             (users) => {
               const buscaUsuario = users.find((user: any) => user.username === this.credentials.username);
               if (buscaUsuario) {
-                // Guarda el rol del usuario
-                this.credentials.rol = buscaUsuario.rol;
-                // Verifica el rol y navega a la página correspondiente
-                if (this.credentials.rol === 'Conductor') {
-                  this.router.navigate(['/home'], {
-                    state: { credentials: this.credentials }
-                  });
+                //Comprobar contraseña
+                if (buscaUsuario.password === this.credentials.password) {
+                  // Guarda el rol del usuario
+                  this.credentials.rol = buscaUsuario.rol;
+                  // Verifica el rol y navega a la página correspondiente
+                  if (this.credentials.rol === 'Conductor') {
+                    this.router.navigate(['/home'], {
+                      state: { credentials: this.credentials }
+                    });
+                  } else {
+                    this.router.navigate(['/passenger'], {
+                      state: { credentials: this.credentials }
+                    });
+                  }
                 } else {
-                  this.router.navigate(['/passenger'], {
-                    state: { credentials: this.credentials }
-                  });
+                  this.mensaje = "Contraseña incorrecta";
                 }
+              } else {
+                this.mensaje = "Usuario inexistente";
               }
             },
             (error) => {
