@@ -1,18 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AutenticacionService } from '../servicios/autenticacion.service';
 import { Geolocation } from '@capacitor/geolocation';
-import { GoogleMap } from '@capacitor/google-maps';
-import { Capacitor } from '@capacitor/core';
-
-declare var google: any;
-
-interface Marker {
-  position: {
-    lat: number,
-    lng: number,
-  };
-  title: string;
-}
 
 @Component({
   selector: 'app-mapa',
@@ -26,7 +14,9 @@ export class MapaPage implements OnInit {
     usuario: ""
   }
 
-  map = null;
+  map: google.maps.Map | null = null;
+  originMarker: google.maps.Marker | null = null; // Marcador inicial llamado "Origen"
+  currentMarker: google.maps.Marker | null = null; // Nueva línea para mantener la referencia al marcador actual
 
   public latitude = 0;
   public longitude = 0;
@@ -34,18 +24,12 @@ export class MapaPage implements OnInit {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
 
-  // Ubicacion Actual
-  origin = { lat: this.latitude, lng: this.longitude };
-
-  // Parque la 93
-  destination = { lat: 4.676802158355713, lng: -74.04825592041016 };
-
   ngOnInit() {
     this.user = {
       usuario: this.auth.username
     };
-    this.printCurrentPosition(); // Llama a la función para obtener la posición al inicio
-    console.log("Esto funca");
+    this.printCurrentPosition();
+    console.log("Esto funciona");
   }
 
   async printCurrentPosition() {
@@ -55,60 +39,79 @@ export class MapaPage implements OnInit {
       this.latitude = latitude;
       this.longitude = longitude;
 
-    // Una vez que obtengas las coordenadas, llama a loadMap()
-    this.loadMap();
-  } catch(error) {
-    console.error('Error al obtener la posición actual', error);
+      this.loadMap();
+    } catch (error) {
+      console.error('Error al obtener la posición actual', error);
+    }
   }
-}
 
-loadMap() {
-  const mapEle: HTMLElement | null = document.getElementById('map');
-  if (mapEle) {
-    this.map = new google.maps.Map(mapEle, {
-      center: { lat: this.latitude, lng: this.longitude },
-      zoom: 12
-    });
-    const marker = {
-      position: {
-        lat: this.latitude,
-        lng: this.longitude
-      },
-      title: 'Origen'
-    };
-    this.addMarker(marker);
+  loadMap() {
+    const mapEle: HTMLElement | null = document.getElementById('map');
+    if (mapEle) {
+      this.map = new google.maps.Map(mapEle, {
+        center: { lat: this.latitude, lng: this.longitude },
+        zoom: 17,
+      });
 
-    this.directionsDisplay.setMap(this.map);
+      this.originMarker = new google.maps.Marker({
+        position: { lat: this.latitude, lng: this.longitude },
+        title: 'Origen',
+        map: this.map,
+      });
 
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
-      mapEle.classList.add('show-map');
-      this.calculateRoute();
-    });
-  } else {
-    console.error('Elemento con el ID "map" no encontrado en el DOM');
+      this.directionsDisplay.setMap(this.map);
+
+      // Añadir evento de clic al mapa
+      google.maps.event.addListener(this.map, 'click', (event: any) => {
+        this.addMarker(event.latLng);
+      });
+
+      google.maps.event.addListenerOnce(this.map, 'idle', () => {
+        mapEle.classList.add('show-map');
+        // Puedes agregar otras acciones después de que el mapa se haya cargado completamente.
+      });
+    } else {
+      console.error('Elemento con el ID "map" no encontrado en el DOM');
+    }
   }
-}
 
+  addMarker(location: google.maps.LatLng) {
+    // Eliminar el marcador actual (excepto el marcador "Origen")
+    if (this.currentMarker && this.currentMarker !== this.originMarker) {
+      this.currentMarker.setMap(null);
+    }
+
+    // Agregar el nuevo marcador
+    this.currentMarker = new google.maps.Marker({
+      position: location,
+      map: this.map,
+      title: 'Nuevo Marcador',
+    });
+
+    // Calcular la ruta con el nuevo marcador
+    this.calculateRoute();
+  }
 
   private calculateRoute() {
-  this.directionsService.route({
-    origin: this.origin,
-    destination: this.destination,
-    travelMode: google.maps.TravelMode.DRIVING,
-  }, (response: any, status: string) => {
-    if (status === google.maps.DirectionsStatus.OK) {
-      this.directionsDisplay.setDirections(response);
-    } else {
-      alert('Could not display directions due to: ' + status);
+    if (this.originMarker && this.currentMarker) {
+      const origin = this.originMarker.getPosition() as google.maps.LatLng;
+      const destination = this.currentMarker.getPosition() as google.maps.LatLng;
+  
+      console.log('Origin:', origin.toString());
+      console.log('Destination:', destination.toString());
+  
+      this.directionsService.route({
+        origin: origin,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+      }, (response: any, status: string) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.directionsDisplay.setDirections(response);
+        } else {
+          alert('Could not display directions due to: ' + status);
+        }
+      });
     }
-  });
+  }
 }
 
-addMarker(marker: Marker) {
-  return new google.maps.Marker({
-    position: marker.position,
-    map: this.map,
-    title: marker.title
-  });
-}
-}
