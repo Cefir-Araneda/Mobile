@@ -53,7 +53,6 @@ export class ViajePage implements OnInit {
       usuario: this.auth.username
     }
     this.printCurrentPosition();
-    console.log("Esto funciona");
   }
 
   add() {
@@ -184,24 +183,22 @@ export class ViajePage implements OnInit {
             const leg = route.legs[0];
             if (leg) {
               const originAddress = leg.start_address;
-              console.log('Dirección de inicio:', originAddress);
   
               // Actualizar la variable 'inicio' con la dirección de inicio
               this.viaje.inicio = originAddress;
             } else {
-              console.error('Error al leer la pierna desde la ruta');
+              console.error('Error al leer la dirección desde la ruta');
             }
   
             // Obtener la dirección de destino
             const destinationLeg = route.legs[route.legs.length - 1];
             if (destinationLeg) {
               const destinationAddress = destinationLeg.end_address;
-              console.log('Dirección de destino:', destinationAddress);
   
               // Actualizar la variable 'termino' con la dirección de destino
               this.viaje.termino = destinationAddress;
             } else {
-              console.error('Error al leer la pierna de destino desde la ruta');
+              console.error('Error al leer la dirección de destino desde la ruta');
             }
           } else {
             console.error('Error al leer la ruta desde la respuesta');
